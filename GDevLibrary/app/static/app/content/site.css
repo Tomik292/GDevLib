@@ -1,0 +1,44 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #F4EFDC;
+}
+
+.navbar-inverse {
+    background-color: #38150F;
+}
+
+.nav.navbar-nav li a {
+    color: #DDA943;
+    font-weight: bolder;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: bottom;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.nav.navbar-nav {
+    margin: 9px;
+}
+
+.loginbox {
+    width: 320px;
+    height: 470px;
+    background: #38150F;
+    color: #F4EFDC;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    left: calc(50% - 50px);
+}
