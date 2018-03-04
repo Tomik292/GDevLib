@@ -2,6 +2,9 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #F4EFDC;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 .navbar-inverse {
@@ -23,9 +26,9 @@ body {
     margin: 9px;
 }
 
-.loginbox {
+.register_box {
     width: 320px;
-    height: 470px;
+    height: 450px;
     background: #38150F;
     color: #F4EFDC;
     top: 50%;
@@ -33,7 +36,38 @@ body {
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
+    border: solid;
+    border-color: #DDA943;
 }
+
+.register_form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 100px;
+    vertical-align: central;
+}
+
+.login_box {
+    width: 320px;
+    height: 350px;
+    background: #38150F;
+    color: #F4EFDC;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border:solid;
+    border-color:#DDA943;
+}
+
+.login_form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 100px;
+    vertical-align: central;
+}
+
 
 .avatar {
     width: 100px;
@@ -41,4 +75,54 @@ body {
     border-radius: 50%;
     position: absolute;
     left: calc(50% - 50px);
+}
+
+.btn.btn-primary.register {
+    margin-left:110px;
+    background-color:#DDA943;
+    border-color:#F4EFDC;
+}
+
+.btn.btn-primary.login {
+    margin-left: 110px;
+    background-color: #DDA943;
+    border-color: #F4EFDC;
+}
+
+.btn.btn-primary.logout {
+    font-size: 30px;
+    top: 5px;
+    right:5px;
+    background-color: #DDA943;
+    border-color: #F4EFDC;
+    font-size: 20px;
+    position:absolute;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+}
+
+.no_account {
+    margin-left: 40px;
+    color:#F4EFDC;
+}
+
+.container {
+    margin: 0 auto;
+    margin-top: 20px;
+    position: relative;
+    width: 70%;
+    height: 0;
+    padding-bottom: 40%;
+    background: #4c4c4c;
+    border: solid 10px #2c2c2c;
+}
+
+.slide_img {
+    position: absolute;
+    width:100%;
+    height:100%;
+}
+
+.slide_img.img {
+    width:100%;
+    height:100%;
 }

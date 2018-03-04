@@ -60,6 +60,7 @@
     <Content Include="app\templates\app\cry_main.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
+    <Content Include="app\templates\app\register.html" />
     <Content Include="app\templates\app\main.html" />
     <Content Include="app\templates\app\unity_main.html" />
     <Content Include="app\templates\app\unreal_main.html" />

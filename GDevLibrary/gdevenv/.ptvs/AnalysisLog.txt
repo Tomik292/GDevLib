@@ -3768,3 +3768,83 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\Extens
 2018-01-22T19:36:36: Start analysis
 2018-01-22T19:36:36: IncludeModulesFromModulePath = win32com
 2018-01-22T19:36:40: Deleting 0 files
+
+2018-02-01T23:04:47: Start analysis
+2018-02-01T23:04:47: IncludeModulesFromModulePath = win32com
+2018-02-01T23:04:50: Including c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms because crispy_forms.base needs updating
+2018-02-01T23:04:50: Including c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms because crispy_forms.tests.conftest needs updating
+2018-02-01T23:04:51: Deleting 0 files
+2018-02-01T23:04:51: astropy.CallDepth = 0
+2018-02-01T23:04:51: delphixpy.CallDepth = 0
+2018-02-01T23:04:51: matplotlib.CallDepth = 3
+2018-02-01T23:04:51: pandas.CallDepth = 0
+2018-02-01T23:04:51: sympy.CallDepth = 0
+2018-02-01T23:04:51: Start group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms" with 14 files
+2018-02-01T23:04:51: Parsing complete
+2018-02-01T23:04:51: Analyzing "crispy_forms.base" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\base.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.bootstrap" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\bootstrap.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.compatibility" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\compatibility.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.exceptions" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\exceptions.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.helper" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\helper.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.layout" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\layout.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.layout_slice" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\layout_slice.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.utils" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\utils.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\__init__.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.templatetags.crispy_forms_field" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\templatetags\crispy_forms_field.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.templatetags.crispy_forms_filters" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\templatetags\crispy_forms_filters.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.templatetags.crispy_forms_tags" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\templatetags\crispy_forms_tags.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.templatetags.crispy_forms_utils" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\templatetags\crispy_forms_utils.py")
+2018-02-01T23:04:51: Analyzing "crispy_forms.templatetags" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\templatetags\__init__.py")
+2018-02-01T23:04:51: Starting analysis of 14 modules
+2018-02-01T23:04:53: Analysis complete
+2018-02-01T23:04:53: Saving group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms"
+2018-02-01T23:04:53: [ERROR] crispy_forms.utils.flatatt: Unknown has no name
+2018-02-01T23:04:53: End of group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms"
+2018-02-01T23:04:53: Start group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms" with 12 files
+2018-02-01T23:04:53: Parsing complete
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.conftest" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\conftest.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.forms" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\forms.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_dynamic_api" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_dynamic_api.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_form_helper" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_form_helper.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_layout" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_layout.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_layout_objects" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_layout_objects.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_settings" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_settings.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_tags" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_tags.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.test_utils" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\test_utils.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.urls" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\urls.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests.utils" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\utils.py")
+2018-02-01T23:04:53: Analyzing "crispy_forms.tests" ("c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms\tests\__init__.py")
+2018-02-01T23:04:53: Starting analysis of 12 modules
+2018-02-01T23:04:55: Analysis complete
+2018-02-01T23:04:55: Saving group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms"
+2018-02-01T23:04:55: [ERROR] crispy_forms.tests.test_settings.TEMPLATE_DIRS: Unknown has no name
+2018-02-01T23:04:55: End of group "c:\users\tomas\desktop\gdevlib\gdevlibrary\gdevlibrary\gdevenv\lib\site-packages\crispy_forms"
+2018-02-01T23:04:58: Deleting 0 files
+
+2018-02-02T14:36:53: Start analysis
+2018-02-02T14:36:53: IncludeModulesFromModulePath = win32com
+2018-02-02T14:37:03: Deleting 0 files
+
+2018-02-11T11:14:26: Start analysis
+2018-02-11T11:14:27: IncludeModulesFromModulePath = win32com
+2018-02-11T11:14:31: Deleting 0 files
+
+2018-02-12T16:31:58: Start analysis
+2018-02-12T16:31:59: IncludeModulesFromModulePath = win32com
+2018-02-12T16:32:14: Deleting 0 files
+
+2018-02-25T21:34:25: Start analysis
+2018-02-25T21:34:25: IncludeModulesFromModulePath = win32com
+2018-02-25T21:34:29: Deleting 0 files
+
+2018-02-27T22:38:33: Start analysis
+2018-02-27T22:38:33: IncludeModulesFromModulePath = win32com
+2018-02-27T22:38:38: Deleting 0 files
+
+2018-03-01T20:27:01: Start analysis
+2018-03-01T20:27:01: IncludeModulesFromModulePath = win32com
+2018-03-01T20:27:06: Deleting 0 files
+
+2018-03-03T09:51:15: Start analysis
+2018-03-03T09:51:15: IncludeModulesFromModulePath = win32com
+2018-03-03T09:51:19: Deleting 0 files
