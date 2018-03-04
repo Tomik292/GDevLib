@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <img>- My Django Application</title>
+    <title>GDevLib - {% block title %} {% endblock %}</title>
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
@@ -29,10 +28,21 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'login' %}">Sign In</a></li>
+                {% if user %}
+                <li>
+                    <form class="logout" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                         <button type="submit" class="btn btn-primary logout">Log Out</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Log In</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
+
+
     {% block content %}
     {% endblock %}
 </body>

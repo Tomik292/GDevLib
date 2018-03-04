@@ -6,12 +6,13 @@ from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
 
+from django.contrib.auth import views as build_views
+
 import app.forms
 import app.views as views
 
 from django.conf.urls import include
 from django.contrib import admin
-admin.autodiscover()
 
 urlpatterns = [ 
 
@@ -22,8 +23,19 @@ urlpatterns = [
 
     # /login/
     url(r'^login/$',
-        views.login,
+        views.UserLoginView,
         name='login'),
+
+    #redirects to /login/
+    url(r'^logout/$',
+        build_views.logout,
+        {'next_page':'login'},
+        name='logout'),
+
+    # /register/
+    url(r'^register/$',
+        views.UserRegisterView,
+        name='register'),
 
     # /unity/
     url(r'^unity/',
@@ -46,5 +58,5 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     # /admin/
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 ]
