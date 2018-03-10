@@ -55,6 +55,9 @@
     <Folder Include="app\templates\app\" />
     <Folder Include="C:\Users\Tomas\Desktop\gdevlib\GDevLibrary\GDevLibrary\app\templates\app\" />
     <Folder Include="GDevLibrary\" />
+    <Folder Include="GDevLibrary\app\" />
+    <Folder Include="GDevLibrary\app\templates\" />
+    <Folder Include="GDevLibrary\app\templates\app\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\cry_main.html" />
