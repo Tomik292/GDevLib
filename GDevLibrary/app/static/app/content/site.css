@@ -5,11 +5,13 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .navbar-inverse {
     background-color: #38150F;
 }
+
 
 .nav.navbar-nav li a {
     color: #DDA943;
@@ -37,10 +39,6 @@ body {
     margin: 9px;
 }
 
-.navbar-toggle {
-
-}
-
 .register_box {
     width: 320px;
     height: 450px;
@@ -64,7 +62,7 @@ body {
 
 .login_box {
     width: 320px;
-    height: 350px;
+    height: 380px;
     background: #38150F;
     color: #F4EFDC;
     top: 50%;
@@ -84,7 +82,7 @@ body {
 }
 
 
-.avatar {
+.gdev-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -99,9 +97,12 @@ body {
 }
 
 .btn.btn-primary.login {
-    margin-left: 110px;
+    position: absolute;
+    left: calc(50% - 50px);
+    bottom: 40px;
     background-color: #DDA943;
     border-color: #F4EFDC;
+    font-size: 20px;
 }
 
 .navbar-toggle{
@@ -109,8 +110,21 @@ body {
     border:none;
 }
 
-
 .user-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: solid 1px #F4EFDC;
+}
+
+.username {
+    color: #DDA943;
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    padding-bottom:40px;
+}
+
+.gdev-logo {
     position: absolute;
     right: 5px;
     top: -5px;
@@ -141,4 +155,62 @@ body {
 .slide_img.img {
     width:100%;
     height:100%;
+}
+
+.btn.btn-primary.logout {
+    background-color: #DDA943;
+    border-color: #F4EFDC;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin-top: 200px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    height: 97%;
+    background: #38150E;
+    right: 0;
+}
+
+#body.noScroll {
+    overflow-y:hidden;
+}
+
+#page-content-wrapper {
+    position:absolute;
+    width:100%;
+    margin-top:25px;
+}
+
+#wrapper.menuDisplayed #sidebar-wrapper {
+    width: 40%;
+}
+
+.sidebar-nav {
+    margin-top: 50px;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 50px;
+    line-height: 60px;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #DDA943;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+}
+
+.sidebar-nav li a:hover {
+    background: #DDA943;
+    color:#F4EFDC;
 }

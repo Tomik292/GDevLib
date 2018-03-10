@@ -6,7 +6,7 @@ Registration
 {% endblock %}
 {% block content %}
 <div class="register_box">
-    <img src="{% static "app/content/GdevlogowBackground.png" %}" class="avatar"/>
+    <img src="{% static "app/content/GdevlogowBackground.png" %}" class="gdev-avatar"/>
     <form action="" method="post" class="register_form">
         {% csrf_token %}
         {{ form|crispy }}

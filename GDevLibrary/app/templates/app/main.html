@@ -31,4 +31,14 @@ Dashboard
     </div>
 </div>
 
+<script>
+
+    $("#user-menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("menuDisplayed");
+        $("#body").toggleClass("noScroll");
+    });
+
+</script>
+
 {% endblock %}

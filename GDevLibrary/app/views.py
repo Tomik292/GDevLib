@@ -16,7 +16,6 @@ from .forms import UserForm, LoginForm
 
 def UserRegisterView(request):
     user = request.user if request.user.is_authenticated() else None
-    print(user)
     template_name = 'app/register.html'
     if request.method == 'POST': 
         form = UserForm(request.POST)
@@ -39,7 +38,13 @@ def UserRegisterView(request):
             return redirect('login')
     else:
         form = UserForm()
-    return render(request, template_name, {'form':form})
+
+    content= {
+        'form':form,
+        'user':user 
+        }
+
+    return render(request, template_name, content)
 
 def UserLoginView(request):
     user = request.user if request.user.is_authenticated() else None
