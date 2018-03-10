@@ -22,8 +22,23 @@ body {
     padding-right: 30px;
 }
 
+.navbar-nav.navbar-right li {
+    color: #DDA943;
+    font-weight: bolder;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: bottom;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    padding-right: 10px;
+    padding-top:5px;
+}
+
 .nav.navbar-nav {
     margin: 9px;
+}
+
+.navbar-toggle {
+
 }
 
 .register_box {
@@ -89,15 +104,16 @@ body {
     border-color: #F4EFDC;
 }
 
-.btn.btn-primary.logout {
-    font-size: 30px;
-    top: 5px;
-    right:5px;
-    background-color: #DDA943;
-    border-color: #F4EFDC;
-    font-size: 20px;
-    position:absolute;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+.navbar-toggle{
+    margin-top:20px;
+    border:none;
+}
+
+
+.user-logo {
+    position: absolute;
+    right: 5px;
+    top: -5px;
 }
 
 .no_account {
