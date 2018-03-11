@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>GDevLibrary</Name>
     <RootNamespace>GDevLibrary</RootNamespace>
-    <InterpreterId>MSBuild|gdevenv|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|envgdev|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -98,10 +98,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="gdevenv\">
-      <Id>gdevenv</Id>
+    <Interpreter Include="envgdev\">
+      <Id>envgdev</Id>
       <Version>3.6</Version>
-      <Description>gdevenv (Python 3.6 (64-bit))</Description>
+      <Description>envgdev (Python 3.6 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

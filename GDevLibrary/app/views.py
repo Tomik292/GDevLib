@@ -64,7 +64,6 @@ def UserLoginView(request):
                     return redirect('home')
     else:
         form = LoginForm()
-    
     content= {
         'form':form,
         'user':user 
