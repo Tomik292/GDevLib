@@ -223,7 +223,7 @@ UpgradeLog*.htm
 GDevLibrary/envgdev/
 
 #databese
-GdevLibrary/db.sqlite3
+GDevLibrary/db.sqlite3
 
 # Microsoft Fakes
 FakesAssemblies/

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -15,7 +15,7 @@ from .forms import UserForm, LoginForm
 
 
 def UserRegisterView(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     template_name = 'app/register.html'
     if request.method == 'POST': 
         form = UserForm(request.POST)
@@ -47,7 +47,7 @@ def UserRegisterView(request):
     return render(request, template_name, content)
 
 def UserLoginView(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     print(user)
     template_name = 'app/login.html'
     if request.method ==  'POST':
@@ -75,15 +75,14 @@ def UserLoginView(request):
 
 def home(request):
     """Renders the home page."""
-    user = request.user if request.user.is_authenticated() else None
-    print(user)
+    user = request.user if request.user.is_authenticated else None
     return render(
         request,
         'app/main.html',
         {'user':user})
 
 def main_unity(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     print(user)
     return render(
         request,
@@ -91,7 +90,7 @@ def main_unity(request):
        {'user':user})
 
 def main_unreal(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     print(user)
     return render(
         request,
@@ -99,7 +98,7 @@ def main_unreal(request):
         {'user':user})
 
 def main_cry(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     print(user)
     return render(
         request,
