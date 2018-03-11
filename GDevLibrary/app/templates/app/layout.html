@@ -73,5 +73,14 @@
     {% block content %}
     {% endblock %}
     </div>
+
+<script>
+    $("#user-menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("menuDisplayed");
+        $("#body").toggleClass("noScroll");
+    });
+</script>
+
 </body>
 </html>
