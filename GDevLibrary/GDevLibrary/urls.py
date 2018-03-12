@@ -53,6 +53,11 @@ urlpatterns = [
        name='main_unreal'),
 
 
+    # /account/
+    url(r'^account/',
+        views.account,
+        name='account'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

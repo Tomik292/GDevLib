@@ -71,6 +71,14 @@ def UserLoginView(request):
 
     return render(request, template_name, content)
 
+def account(request):
+    """Renders the home page."""
+    user = request.user if request.user.is_authenticated else None
+    return render(
+        request,
+        'app/account.html',
+        {'user':user})
+
 
 
 def home(request):
