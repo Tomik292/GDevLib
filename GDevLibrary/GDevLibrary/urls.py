@@ -54,9 +54,31 @@ urlpatterns = [
 
 
     # /account/
-    url(r'^account/',
+    url(r'^account/profile/$',
         views.account,
         name='account'),
+
+     # /account/messages
+    url(r'^account/messages/$',
+        views.messages,
+        name='messages'),
+
+     # /account/articles
+    url(r'^account/articles/$',
+        views.articles,
+        name='articles'),
+
+     # /account/favorites
+    url(r'^account/favorites/$',
+        views.favorites,
+        name='favorites'),
+
+     # /account/settings
+    url(r'^account/settings/$',
+        views.settings,
+        name='settings'),
+
+
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

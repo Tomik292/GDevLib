@@ -1,0 +1,197 @@
+body {
+    background-color: #F4EFDC;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+h1 {
+    color:#DDA943;
+}
+.table-brown {
+    background-color:#38150F;
+    color:#F4EFDC;
+}
+
+.register_box {
+    width: 320px;
+    height: 450px;
+    background: #38150F;
+    color: #F4EFDC;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border: solid;
+    border-color: #DDA943;
+}
+
+.register_form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 100px;
+    vertical-align: central;
+}
+
+.navbar.fixed-top.navbar-expand-lg.navbar-dark{
+    background-color:#38150F;
+}
+
+.nav-link {
+    font-size:25px;
+    color:#DDA943 !important;  
+}
+
+.nav-item {
+    margin-left:20px;
+}
+
+.login_box {
+    width: 320px;
+    height: 380px;
+    background: #38150F;
+    color: #F4EFDC;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border:solid;
+    border-color:#DDA943;
+}
+
+.login_form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 100px;
+    vertical-align: central;
+}
+
+
+.gdev-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    left: calc(50% - 50px);
+}
+
+.btn.btn-primary.register {
+    margin-left:110px;
+    background-color:#DDA943;
+    border-color:#F4EFDC;
+}
+
+.btn.btn-primary.login {
+    position: absolute;
+    left: calc(50% - 50px);
+    bottom: 40px;
+    background-color: #DDA943;
+    border-color: #F4EFDC;
+    font-size: 20px;
+}
+
+.user-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: solid 1px #F4EFDC;
+}
+
+.username {
+    color: #DDA943;
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    padding-bottom:40px;
+}
+
+
+.no_account {
+    margin-left: 40px;
+    color: #F4EFDC;
+}
+
+.btn.btn-primary.logout {
+    background-color: #DDA943;
+    border-color: #F4EFDC;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin-top: 200px;
+}
+
+.pageContent {
+    margin-top: 70px
+}
+
+.list-heading {
+    font-size: 24px;
+    color:#DDA943;
+    background-color:#38150F;
+}
+
+
+.activated {
+    background-color:#DDA943;
+    color:#F4EFDC;  
+}
+
+.col-sm {
+    border: solid 1px black;
+    text-align: center;
+}
+
+.container-fluid{
+    border:solid 1px black;
+}
+
+#sidebar-wrapper {
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    height: 97%;
+    background: #38150E;
+    right: 0;
+    top:80px;
+}
+
+#body.noScroll {
+    overflow-y:hidden;
+}
+
+#page-content-wrapper {
+    position:absolute;
+    width:100%;
+    margin-top:25px;
+}
+
+#wrapper.menuDisplayed #sidebar-wrapper {
+    width: 40%;
+}
+
+.sidebar-nav {
+    margin-top: 50px;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 50px;
+    line-height: 60px;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #DDA943;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+}
+
+.sidebar-nav li a:hover {
+    background: #DDA943;
+    color:#F4EFDC;
+}

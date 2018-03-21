@@ -1,0 +1,58 @@
+﻿{% extends "app/layout.html" %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
+            <div class="list-group">
+                <h2 href="#" class="list-group-item list-heading">
+                    {{user.first_name}}'s profile
+                </h2>
+                <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action">Messages</a>
+                <a href="#" class="list-group-item list-group-item-action">Articles</a>
+                <a href="#" class="list-group-item list-group-item-action">Favorites</a>
+                <a href="#" class="list-group-item list-group-item-action disabled">Premium</a>
+                <a href="#" class="list-group-item list-group-item-action activated">Settings</a>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
