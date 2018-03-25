@@ -1,0 +1,57 @@
+﻿{% extends "app/layout.html" %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
+            <div class="list-group">
+                <h2 href="#" class="list-group-item list-heading">
+                    {{user.first_name}}'s profile
+                </h2>
+                <a href="{% url 'account' %}" class="list-group-item list-group-item-action activated">Profile</a>
+                <a href="{% url 'messages' %}" class="list-group-item list-group-item-action">Messages</a>
+                <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
+                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
+                <a href="" class="list-group-item list-group-item-action disabled">Premium</a>
+                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2"><h1>Your Profile</h1></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nickname:</td>
+                        <td>{{user.username}}</td>
+                    </tr>
+                    <tr>
+                        <td>First Name:</td>
+                        <td>{{user.first_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td>{{user.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Bio:</td>
+                        <td>{{user.userextension.bio}}</td>
+                    </tr>
+                    <tr>
+                        <td>Location:</td>
+                        <td>{{user.userextension.location}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

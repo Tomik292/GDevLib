@@ -1,0 +1,136 @@
+﻿{% extends "app/layout.html" %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block script %}
+<link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
+            <div class="list-group">
+                <h2 href="#" class="list-group-item list-heading">
+                    {{user.first_name}}'s profile
+                </h2>
+                <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
+                <a href="{% url 'messages' %}" class="list-group-item list-group-item-action activated">Messages</a>
+                <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
+                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
+                <a href="#" class="list-group-item list-group-item-action disabled">Premium</a>
+                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab">Sent</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab">Delivered 
+                    {% if not_seen.count > 0 %} 
+                    - {{not_seen.count}} 
+                    {% endif %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" role="tab" data-toggle="tab">Article Comments</a>
+                </li>
+            </ul>
+
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Addressee</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Text</th>
+                                <th scope="col"></th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for msg in sent %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{% url 'message_detail' id=msg.id %}">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </th>
+                                <td>{{msg.recipient}}</td>
+                                <td>{{msg.subject}}</td>
+                                <td colspan="2">{{msg.text|truncatechars:9}}</td>
+                                <td>{{msg.sedingTime|date:'H:i d-m-Y'}} {{msg.seen}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Sender</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Text</th>
+                                <th scope="col"></th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for msg in delivered %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{% url 'message_detail' id=msg.id %}">
+                                    {% if msg.seen %}
+                                    <i class="fas fa-envelope"></i>
+                                    {% else %}
+                                    <i class="fas fa-envelope-open"></i>
+                                    {% endif %}
+                                    </a>
+                                </th>
+                                <td>{{msg.sender}}</td>
+                                <td>{{msg.subject}}</td>
+                                <td colspan="2">{{msg.text|truncatechars:9}}</td>
+                                <td>{{msg.sedingTime|date:'H:i d-m-Y'}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="contact">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Article</th>
+                                <th scope="col">Text</th>
+                                <th scope="col"></th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <a class="btn btn-primary msg-send" href="{% url 'message_form' %}" role="button">Send Message</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "app/templates/app/settings.min.html",
+    "inputFiles": [
+      "app/templates/app/settings.html"
+    ]
+  }
+]

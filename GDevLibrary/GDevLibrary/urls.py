@@ -15,7 +15,6 @@ from django.conf.urls import include
 from django.contrib import admin
 
 urlpatterns = [ 
-
     # /
     url(r'^$',
        views.home,
@@ -51,6 +50,43 @@ urlpatterns = [
     url(r'^unreal/',
        views.main_unreal,
        name='main_unreal'),
+
+
+    # /account/profile/
+    url(r'^account/profile/$',
+        views.account,
+        name='account'),
+
+     # /account/messages
+    url(r'^account/messages/$',
+        views.messages,
+        name='messages'),
+
+    # /account/messages/1 
+    url(r'^account/messages/msg(?P<id>\d+)/$',
+        views.message_detail,
+        name='message_detail'),
+
+    # /account/send_message/
+    url(r'^account/send_message/$',
+        views.message_form,
+        name='message_form'),
+
+     # /account/articles
+    url(r'^account/articles/$',
+        views.articles,
+        name='articles'),
+
+     # /account/favorites
+    url(r'^account/favorites/$',
+        views.favorites,
+        name='favorites'),
+
+     # /account/settings
+    url(r'^account/settings/$',
+        views.settings,
+        name='settings'),
+
 
 
     # Uncomment the admin/doc line below to enable admin documentation:
