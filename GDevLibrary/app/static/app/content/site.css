@@ -1,19 +1,94 @@
 body {
-    background-color: #F4EFDC;
     width: 100%;
     height: 100%;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
+    background-color: #F4EFDC;
 }
+
+html {
+    height:100%;
+    width:100%
+}
+
 
 h1 {
     color:#DDA943;
 }
 
 .table-striped{
-    border:solid 2px #38150F;
+    border:none;    
 }
 
+.unity-img {
+    background-image: url("unity.jpg");
+    /* Full height */
+    height: 60%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.unreal-img {
+    background-image: url("unreal.png");
+    /* Full height */
+    height: 60%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cry-img {
+    background-image: url("cry.png");
+    /* Full height */
+    height: 60%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+.row {
+}
+
+.container {
+    margin-top:75px;
+}
+
+.container-fluid {
+    height: 100%;
+    width: 100%;
+}
+.col-pic {
+    width:50%;
+    height:40%;
+}
+
+.small-img {
+    background-image: url("1.jpg");
+    /* Full height */
+    height: 100%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.jumbotron-left-unity {
+    background-image: url("2.jpg");
+}
+
+.jumbotron-right-unity {
+    background-image: url("3.jpg");
+}
 
 .register_box {
     width: 320px;
@@ -36,8 +111,12 @@ h1 {
     vertical-align: central;
 }
 
-.navbar.fixed-top.navbar-expand-lg.navbar-dark{
-    background-color:#38150F;
+.navbar.fixed-top.navbar-expand-lg.navbar-dark {
+    background-color: #38150F;
+}
+
+.msg-send {
+    margin-bottom: 10px;
 }
 
 .nav-link {
@@ -107,7 +186,11 @@ h1 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     padding-bottom:40px;
 }
-
+p.msg {
+    word-break: break-all;
+    white-space: normal;
+    background: #f4efea;
+}
 
 .no_account {
     margin-left: 40px;
@@ -123,8 +206,11 @@ h1 {
 }
 
 .pageContent {
-    margin-top: 70px
+    margin-top:35px;
+    height:100%;
 }
+
+
 
 .list-heading {
     font-size: 24px;
@@ -144,39 +230,9 @@ h1 {
 .col{
     border: solid 1px black;
     text-align: center;
-}
+}*/
+    
 
-/*
-.container-fluid{
-    border:solid 1px black;
-}
-    */
-
-#sidebar-wrapper {
-    z-index: 1;
-    position: absolute;
-    width: 0px;
-    height: 97%;
-    background: #38150E;
-    right: 0;
-    top:80px;
-}
-
-
-
-
-#body.noScroll {
-    overflow-y:hidden;
-}
-
-#page-content-wrapper {
-    position:absolute;
-    width:100%;
-}
-
-#wrapper.menuDisplayed #sidebar-wrapper {
-    width: 40%;
-}
 
 .sidebar-nav {
     margin-top: 50px;

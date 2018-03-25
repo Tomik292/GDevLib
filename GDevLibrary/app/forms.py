@@ -3,6 +3,7 @@ from crispy_forms.helper import FormHelper
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from .models import Message
 class UserForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -28,3 +29,9 @@ class UserForm(forms.ModelForm):
 class LoginForm(forms.Form):
     name = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
+
+class MessageForm(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject' ,'text']

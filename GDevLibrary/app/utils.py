@@ -6,3 +6,9 @@ def UserCheck(request):
     u = User.objects.get(username=username)
     return u
 
+ENGINE_CHOICES = (
+    ("UNITY", "Unity Engine"),
+    ("CRY", "Cry Engine"),
+    ("UNREAL", "Unreal Engine"),
+    ("OTHER", "Other Engines"),
+)

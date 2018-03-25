@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.urls import reverse
@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.core.mail import send_mail
 
-from .forms import UserForm, LoginForm
+from .forms import UserForm, LoginForm, MessageForm
 from .utils import UserCheck
 from .models import Message
 
@@ -81,14 +81,21 @@ def account(request):
 
 def messages(request):
     """ Renders the messages page """
-    username = request.user if request.user.is_authenticated else None
-    u = User.objects.get(username=username)
+    u = UserCheck(request)
 
-    msgs = Message.objects.filter(sender = username)
+    sent_msgs = Message.objects.filter(sender = u)
+
+    delivered_msgs = Message.objects.filter(recipient = u.username)
+
+    not_seen_msgs = Message.objects.filter(recipient = u.username, seen = False)
+
+    print(not_seen_msgs.count())
 
     context = {
         'user':u,
-        'messages':msgs
+        'sent':sent_msgs,
+        'delivered':delivered_msgs,
+        'not_seen':not_seen_msgs,
         }
 
     return render(
@@ -96,6 +103,50 @@ def messages(request):
         'app/messages.html',
         context
         )
+
+def message_detail(request, id):
+    u = UserCheck(request)
+    message = get_object_or_404(Message, pk=id)
+    message.seen = True
+    message.save()
+
+    context = {
+        'user':u,
+        'message':message
+        }
+
+    return render(
+        request,
+        'app/message.html',
+        context)
+
+def message_form(request):
+     u = UserCheck(request)
+     if request.method ==  'POST':
+        form =  MessageForm(request.POST)
+        if form.is_valid():
+            Message.objects.create(
+                sender = u,
+                recipient = form.cleaned_data['recipient'],
+                subject = form.cleaned_data['subject'],
+                text = form.cleaned_data['text'],
+                sedingTime = datetime.now(),
+                )
+            return redirect('messages')
+     else:
+        form = MessageForm()
+
+     context = {
+        'user':u,
+        'form':form,
+        }
+    
+     return render(
+        request,
+        'app/message_form.html',
+        context)
+
+
 def articles(request):
     """ Renders the articles page """
     u = UserCheck(request)

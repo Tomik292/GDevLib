@@ -15,7 +15,6 @@ from django.conf.urls import include
 from django.contrib import admin
 
 urlpatterns = [ 
-
     # /
     url(r'^$',
        views.home,
@@ -53,7 +52,7 @@ urlpatterns = [
        name='main_unreal'),
 
 
-    # /account/
+    # /account/profile/
     url(r'^account/profile/$',
         views.account,
         name='account'),
@@ -62,6 +61,16 @@ urlpatterns = [
     url(r'^account/messages/$',
         views.messages,
         name='messages'),
+
+    # /account/messages/1 
+    url(r'^account/messages/msg(?P<id>\d+)/$',
+        views.message_detail,
+        name='message_detail'),
+
+    # /account/send_message/
+    url(r'^account/send_message/$',
+        views.message_form,
+        name='message_form'),
 
      # /account/articles
     url(r'^account/articles/$',
