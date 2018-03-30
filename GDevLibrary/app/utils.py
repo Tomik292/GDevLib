@@ -2,9 +2,11 @@ from django.contrib.auth.models import User
 
 
 def UserCheck(request):
-    username = request.user if request.user.is_authenticated else None
-    u = User.objects.get(username=username)
-    return u
+    if request.user.is_authenticated:
+        username = request.user
+        return User.objects.get(username=username)
+    else:
+        return None
 
 ENGINE_CHOICES = (
     ("UNITY", "Unity Engine"),

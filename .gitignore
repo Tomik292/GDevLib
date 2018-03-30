@@ -222,8 +222,7 @@ UpgradeLog*.htm
 # Virtual Env
 GDevLibrary/envgdev/
 
-#databese
-GDevLibrary/db.sqlite3
+media/
 
 # Microsoft Fakes
 FakesAssemblies/
@@ -264,4 +263,7 @@ paket-files/
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
-*.pyc
+*.pyc¨
+
+#Mail
+email_info.py

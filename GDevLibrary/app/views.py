@@ -3,7 +3,7 @@ from datetime import datetime
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
+from django.template import RequestContext, loader
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -11,9 +11,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.core.mail import send_mail
 
-from .forms import UserForm, LoginForm, MessageForm
+from .forms import UserForm, LoginForm, MessageForm, ArticleForm, UserExtensionForm
 from .utils import UserCheck
-from .models import Message
+from .models import Message, Article
 
 def UserRegisterView(request):
     u = UserCheck(request)
@@ -147,13 +147,118 @@ def message_form(request):
         context)
 
 
+
+def settings(request):
+    """ Renders the settings page """
+    u = UserCheck(request)
+    form = UserExtensionForm(request.POST or None, instance = u)
+    if form.is_valid():
+        form.save()
+        return redirect('account')
+    
+    context = {
+        'user':u,
+        'form':form,
+        }
+
+    return render(
+        request,
+        'app/settings.html',
+        context)
+
+#def user_view(request, id):
+#     u = get_object_or_404(User, id=id)
+
+#     context = {
+#         'user': u,
+#         }
+    
+#    # return redirect(reverse('u', kwargs={'id': u.id}))
+    
+#    #return render(
+#    #     request, 
+#    #     'app/user_page.html',
+#    #     context)
+
+
 def articles(request):
     """ Renders the articles page """
     u = UserCheck(request)
+    saved_art = Article.objects.filter(user = u, released = False) 
+    released_art = Article.objects.filter(user = u, released = True) 
+
+    context = {
+            'saved':saved_art,
+            'released':released_art,
+            'user':u,
+        }
+
     return render(
         request,
         'app/articles.html',
-        {'user':u})
+        context)
+
+def create_article(request):
+    u = UserCheck(request)
+    form =  ArticleForm(request.POST or None, request.FILES or None)
+    if 'CREATE' in request.POST:
+        if form.is_valid():
+            Article.objects.create(
+                user = u,
+                name = form.cleaned_data['name'],
+                engine = form.cleaned_data['engine'],
+                picture = form.cleaned_data['picture'],
+                text = form.cleaned_data['text'],
+                tags = form.cleaned_data['tags'],
+                # picture = form.cleaned_data['picture'],
+                verified = False,
+                released = True,
+                release_date = datetime.now(),
+                )
+            return redirect('articles')
+    if 'SAVE' in request.POST:
+        if form.is_valid():
+            Article.objects.create(
+                user = u,
+                name = form.cleaned_data['name'],
+                engine = form.cleaned_data['engine'],
+                picture = form.cleaned_data['picture'],
+                text = form.cleaned_data['text'],
+                tags = form.cleaned_data['tags'],
+                # picture = form.cleaned_data['picture'],
+                verified = False,
+                released = False,
+                release_date = datetime.now(),
+                )
+            return redirect('articles')
+
+    context = {
+        'user':u,
+        'form':form,
+        }
+
+    return render(
+        request,
+        'app/article_form.html',
+        context)
+
+def article_detail(request, article_id):
+    u = UserCheck(request)
+
+    template = loader.get_template('app/article.html')
+
+    article = get_object_or_404(Article, pk=article_id)
+
+    context = {
+         'user':u,
+         'article':article
+         }
+
+    return render(
+         request,
+         'app/article.html',
+         context
+         )
 
 def favorites(request):
     """ Renders the favorites page """
@@ -163,18 +268,11 @@ def favorites(request):
         'app/favorites.html',
         {'user':u})
 
-def settings(request):
-    """ Renders the settings page """
-    u = UserCheck(request)
-    return render(
-        request,
-        'app/settings.html',
-        {'user':u})
-
 
 def home(request):
     """Renders the home page."""
     u = UserCheck(request)
+
     return render(
         request,
         'app/main.html',

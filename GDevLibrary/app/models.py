@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+import datetime
 from .utils import ENGINE_CHOICES
 
 class Message(models.Model):
@@ -45,15 +44,22 @@ class UserExtension(models.Model):
     def __str__(self):
         return str(self.user) + "'s extension"
 
+def upload_location(instance):
+    return "articles/" +  str(instance.id)
+
 class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     name = models.CharField(max_length = 50)
     engine = models.CharField(choices=ENGINE_CHOICES, max_length = 10)
     text = models.TextField(max_length = 10000)
     tags = models.TextField(max_length = 200)
-    picture = models.ImageField()
+    picture = models.ImageField(null=True, blank = True, width_field = 'pic_width', height_field = 'pic_height')
+    pic_height = models.IntegerField(default = 0)
+    pic_width = models.IntegerField(default = 0)
     verified = models.BooleanField()
     points = models.IntegerField(default = 0)
+    released = models.BooleanField(default = False)
+    release_date = models.DateTimeField(default = datetime.datetime.now())
 
     def __str__(self):
        return "Article " + self.name + " by " + str(self.user) + " " + str(self.points) + " points"
@@ -76,6 +82,7 @@ class SubComment(models.Model):
 
     def __str__(self):
        return "Subcomment from " +  str(self.user) + " on " + str(self.comment.article.name) + " article"  
+
 
 
     

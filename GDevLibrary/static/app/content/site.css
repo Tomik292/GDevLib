@@ -2,7 +2,6 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    overflow: hidden;
     background-color: #F4EFDC;
 }
 
@@ -206,7 +205,7 @@ p.msg {
 }
 
 .pageContent {
-    margin-top:35px;
+    margin-top: 35px;
     height:100%;
 }
 
@@ -232,30 +231,3 @@ p.msg {
     text-align: center;
 }*/
     
-
-
-.sidebar-nav {
-    margin-top: 50px;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-    text-indent: 50px;
-    line-height: 60px;
-    vertical-align:middle;
-    text-align:center;
-}
-
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #DDA943;
-    font-size: 30px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
-}
-
-.sidebar-nav li a:hover {
-    background: #DDA943;
-    color:#F4EFDC;
-}

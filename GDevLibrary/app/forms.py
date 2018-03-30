@@ -3,7 +3,8 @@ from crispy_forms.helper import FormHelper
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Message
+from .models import Message, Article, UserExtension
+
 class UserForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -26,6 +27,12 @@ class UserForm(forms.ModelForm):
         if password != re_password:
             raise forms.ValidationError("Passwords aren't matching!")
 
+class UserExtensionForm(forms.ModelForm):
+
+    class Meta:
+        model = UserExtension
+        fields = ['picture','bio','location']
+
 class LoginForm(forms.Form):
     name = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -35,3 +42,9 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['recipient', 'subject' ,'text']
+
+class ArticleForm(forms.ModelForm):
+
+    class Meta:
+        model = Article
+        fields = ['name','picture','engine','text','tags']

@@ -39,26 +39,70 @@
           </li>
         </ul>
         <span class="navbar-text">
-         <a href="{% url 'account'%}">
-            <img src="{% static "app/content/GdevlogowBackground.png"%}" class="gdev-logo" width="50" height="50"/> 
-         </a>
+            {% if user%}
+             <a href="#menu-toggle"  id="menu-toggle">
+                <img src="{% static "app/content/GdevlogowBackground.png"%}" class="gdev-logo" width="50" height="50"/> 
+             </a>
+            {% else %}
+             <a href="{% url 'login'%}">Log in</a> 
+            {% endif %}
         </span>
       </div>
     </nav>
 
-   
-    <div class="pageContent">
-    {% block content %}
-    {% endblock %}
-    </div>
+    <div id="wrapper">
 
+        {% if user %}
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><img src="{% static "app/content/gdevname.png" %}" width="180" height="40"/></li>
+                <li><a href="{% url 'account'%}">Account</a></li>
+                <li><a href="{% url 'messages'%}">Messages</a></li>
+                <li><a href="{% url 'articles'%}s">Articles</a></li>
+                <li><a href="{% url 'favorites'%}">Favorites</a></li>
+                <li><a href="{% url 'logout'%}">Logout</a></li>
+            </ul>
+        </div>
+        {% endif %}
+   
+        <div class="page-content-wrapper">
+        {% block content %}
+        {% endblock %}
+        </div>
+
+    </div>
 <script>
-    $("#user-menu-toggle").click(function (e) {
+    $('document').ready(() => {
+         $("#menu-toggle").click(function(e) {
         e.preventDefault();
-        $("#wrapper").toggleClass("menuDisplayed");
-        $("#body").toggleClass("noScroll");
+        $("#wrapper").toggleClass("toggled");
+        })
+
+        $('#heading-1').on('click', () => {
+            $('#id_text').append("h1| |");
+        })
+        $('#heading-2').on('click', () => {
+            $('#id_text').append("h2| |");
+        })
+         $('#heading-3').on('click', () => {
+            $('#id_text').append("h3| |");
+         })
+         $('#heading-4').on('click', () => {
+            $('#id_text').append("h4| |");
+        })
+        $('#button-text').on('click', () => {
+            $('#id_text').append("p| |");
+        })
+        $('#button-link').on('click', () => {
+            $('#id_text').append("a| |");
+        })
+        $('#button-pic').on('click', () => {
+            $('#id_text').append("pic| |");
+        })
+        $('#button-code').on('click', () => {
+            $('#id_text').append("code| |");
+        })
     });
 </script>
-
 </body>
 </html>

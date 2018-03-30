@@ -11,10 +11,10 @@ Account
     <div class="row">
         <div class="col-lg-12 col-md-5 col-sm-5 col-xs-5">
         <form action="" method="post" class="msg_form">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary register">Send message</button>
-    </form>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary register">Send message</button>
+        </form>
         </div>
     </div>
 </div>

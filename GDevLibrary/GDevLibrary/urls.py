@@ -5,6 +5,8 @@ Definition of urls for GDevLibrary.
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.contrib.auth import views as build_views
 
@@ -35,6 +37,11 @@ urlpatterns = [
     url(r'^register/$',
         views.UserRegisterView,
         name='register'),
+
+    #/user/id
+    #url(r'^user/id(?P<id>\d+)/',
+    #    views.user_view,
+    #    name='user_view'),
 
     # /unity/
     url(r'^unity/',
@@ -77,6 +84,15 @@ urlpatterns = [
         views.articles,
         name='articles'),
 
+         # /account/articles
+    url(r'^account/articles/(?P<article_id>[0-9]+)/$',
+        views.article_detail,
+        name='article_detail'),
+
+    url(r'^account/create_article/$',
+        views.create_article,
+        name='create_article'),
+
      # /account/favorites
     url(r'^account/favorites/$',
         views.favorites,
@@ -95,4 +111,10 @@ urlpatterns = [
     # Uncomment the next line to enable the admin:
     # /admin/
     url(r'^admin/', admin.site.urls),
+
+
 ]
+
+if settings.DEBUG:
+    urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

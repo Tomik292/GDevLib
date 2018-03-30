@@ -21,7 +21,91 @@ Account
             </div>
         </div>
 
-        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+        <div class="col-lg-7 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab">Released</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab">Saved</a>
+                </li>
+            </ul>
+
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th> 
+                                <th scope="col">Engine</th>
+                                <th scope="col">Verified</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r_article in released %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{% url 'article_detail' r_article.id %}">
+                                        <i class="fas fa-book"></i>
+                                    </a>
+                                </th>
+                                <td>{{r_article.name}}</td>
+                                <td>{{r_article.engine}}</td>
+                                <td>
+                                    {% if r_article.verified %}
+                                    <i class="fas fa-check"></i>
+                                    {% else %}
+                                    <i class="fas fa-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{{r_article.release_date|date:'d-m-Y'}}</td>
+                                <td>{{r_article.points}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th> 
+                                <th scope="col">Engine</th>
+                                <th scope="col">Verified</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {% for s_article in saved %}
+                            <tr>
+                                <th scope="row">
+                                    <i class="fas fa-book"></i>
+                                </th>
+                                <td>{{s_article.name}}</td>
+                                <td>{{s_article.engine}}</td>
+                                <td>
+                                    {% if s_article.verified %}
+                                    <i class="fas fa-check"></i>
+                                    {% else %}
+                                    <i class="fas fa-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{{s_article.release_date|date:'d-m-Y'}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <a class="btn btn-primary msg-send" href="{% url 'create_article' %}" role="button">New Article</a>
         </div>
     </div>
 </div>

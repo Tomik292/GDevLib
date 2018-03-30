@@ -12,13 +12,8 @@ Account
                 <h2 href="#" class="list-group-item list-heading">
                     {{user.first_name}}'s profile
                 </h2>
-                <a href="{% url 'account' %}" class="list-group-item list-group-item-action activated">Profile</a>
-                <a href="{% url 'messages' %}" class="list-group-item list-group-item-action">Messages</a>
-                <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
-                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="" class="list-group-item list-group-item-action disabled">Premium</a>
-                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
-                <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Logout</a>
+                <a href="{% url 'user_view' %}" class="list-group-item list-group-item-action activated">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action">Articles</a>
             </div>
         </div>
 
