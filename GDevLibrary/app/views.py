@@ -269,14 +269,23 @@ def favorites(request):
         {'user':u})
 
 
-def home(request):
+#later this is Unity page
+def home(request): 
     """Renders the home page."""
     u = UserCheck(request)
+    articles = Article.objects.filter(engine = "UNITY")[:10]
+    print(articles)
+
+    context = { 
+            'user':u,
+            'articles':articles,
+        }
+
 
     return render(
         request,
         'app/main.html',
-        {'user':u})
+        context)
 
 def main_unity(request):
     u = UserCheck(request)
