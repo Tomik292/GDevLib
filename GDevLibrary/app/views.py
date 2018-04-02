@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.conf import settings
+from django.conf import settings as conf_settings
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.template import RequestContext, loader
@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.core.mail import send_mail
 
-from .forms import UserForm, LoginForm, MessageForm, ArticleForm, UserExtensionForm
+from .forms import UserForm, LoginForm, MessageForm, ArticleForm, UserExtensionForm, SearchForm
 from .utils import UserCheck
 from .models import Message, Article
 
@@ -31,8 +31,8 @@ def UserRegisterView(request):
             send_mail(
              'Welcome to GDevLibrary',
              'Click on this lick for your email authetizatation',
-             settings.EMAIL_HOST_USER,
-              [email, settings.EMAIL_HOST_USER],
+             conf_settings.EMAIL_HOST_USER,
+              [email, conf_settings.EMAIL_HOST_USER],
               fail_silently = False
              )
 
@@ -70,6 +70,162 @@ def UserLoginView(request):
         }
 
     return render(request, template_name, content)
+
+#Engine pages ------------------------------------------------
+
+def home(request): 
+    """Renders the home page."""
+    u = UserCheck(request)
+
+    context = { 
+            'user':u,
+        }
+
+    return render(
+        request,
+        'app/main.html',
+        context)
+
+def main_unity(request):
+    u = UserCheck(request)
+
+    if request.method ==  'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            key_words = form.cleaned_data['key_words']
+        articles = Article.objects.filter(text__icontains = key_words)
+
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/unity_main_search.html',
+            context)
+
+    else:
+        form = SearchForm()
+        articles = Article.objects.filter(engine = "UNITY")[:16]
+        
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/unity_main.html',
+            context)
+
+
+def main_unreal(request):
+    u = UserCheck(request)
+
+    if request.method ==  'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            key_words = form.cleaned_data['key_words']
+        articles = Article.objects.filter(text__icontains = key_words)
+
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/unreal_main_search.html',
+            context)
+
+    else:
+        form = SearchForm()
+        articles = Article.objects.filter(engine = "UNREAL")[:16]
+        
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/unreal_main.html',
+            context)
+
+def main_cry(request):
+    u = UserCheck(request)
+
+    if request.method ==  'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            key_words = form.cleaned_data['key_words']
+        articles = Article.objects.filter(text__icontains = key_words)
+
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/cry_main_search.html',
+            context)
+
+    else:
+        form = SearchForm()
+        articles = Article.objects.filter(engine = "CRY")[:16]
+        
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/cry_main.html',
+            context)
+
+def main_other(request):
+    u = UserCheck(request)
+
+    if request.method ==  'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            key_words = form.cleaned_data['key_words']
+        articles = Article.objects.filter(text__icontains = key_words)
+
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/other_main_search.html',
+            context)
+
+    else:
+        form = SearchForm()
+        articles = Article.objects.filter(engine = "OTHER")[:16]
+        
+        context = { 
+            'user':u,
+            'articles':articles,
+            'form':form,
+            }
+
+        return render(
+            request,
+            'app/other_main.html',
+            context)
 
 def account(request):
     """Renders the home page."""
@@ -151,9 +307,38 @@ def message_form(request):
 def settings(request):
     """ Renders the settings page """
     u = UserCheck(request)
-    form = UserExtensionForm(request.POST or None, instance = u)
+    form = UserExtensionForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        username = form.cleaned_data['username']
+        first_name = form.cleaned_data['first_name']
+        last_name = form.cleaned_data['last_name']
+        email = form.cleaned_data['email']
+        bio = form.cleaned_data['bio']
+        location = form.cleaned_data['location']
+        new_password = form.cleaned_data['new_password']
+        new_password_again = form.cleaned_data['new_password_again']
+
+
+        if username:
+            u.username = username
+
+        if first_name:
+            u.first_name = first_name
+
+        if last_name:
+            u.last_name = last_name
+
+        if email:
+            u.email = email
+
+        if bio:
+            u.userextension.bio = bio
+
+        if location:
+            u.userextension.location= location
+
+        u.save()
+
         return redirect('account')
     
     context = {
@@ -186,10 +371,14 @@ def articles(request):
     u = UserCheck(request)
     saved_art = Article.objects.filter(user = u, released = False) 
     released_art = Article.objects.filter(user = u, released = True) 
+    not_verified = Article.objects.filter(verified = False)
+
+    print(not_verified)
 
     context = {
             'saved':saved_art,
             'released':released_art,
+            'not_verified':not_verified,
             'user':u,
         }
 
@@ -259,42 +448,3 @@ def article_detail(request, article_id):
          'app/article.html',
          context
          )
-
-def favorites(request):
-    """ Renders the favorites page """
-    u = UserCheck(request)
-    return render(
-        request,
-        'app/favorites.html',
-        {'user':u})
-
-
-def home(request):
-    """Renders the home page."""
-    u = UserCheck(request)
-
-    return render(
-        request,
-        'app/main.html',
-        {'user':u})
-
-def main_unity(request):
-    u = UserCheck(request)
-    return render(
-        request,
-       'app/unity_main.html',
-       {'user':u})
-
-def main_unreal(request):
-    u = UserCheck(request)
-    return render(
-        request,
-        'app/unreal_main.html',
-        {'user':u})
-
-def main_cry(request):
-    u = UserCheck(request)
-    return render(
-        request,
-       'app/cry_main.html',
-       {'user':u})

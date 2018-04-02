@@ -1,26 +1,124 @@
-body {
+body, html {
     width: 100%;
     height: 100%;
-    margin: 0;
-    background-color: #F4EFDC;
+    margin: 0px;
+    padding: 0px;
 }
-
-html {
-    height:100%;
-    width:100%
-}
-
 
 h1 {
     color:#DDA943;
+}
+
+
+.navbar.navbar-expand-lg {
+    background-color: #38150F;
+}
+
+
+
+/*Sidebar*/
+
+#wrapper {
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-right: 250px;
 }
 
 .table-striped{
     border:none;    
 }
 
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: #38150F;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-left: -250px;
+}
+/* Sidebar ends */
+
+/* sidebar style */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #DDA943;
+    font-size: 20px;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+/* sideabar style end */
+
+/*Engine images*/
+
 .unity-img {
-    background-image: url("unity.jpg");
+    background-image: url("unity.png");
     /* Full height */
     height: 60%;
     width: 100%;
@@ -29,6 +127,7 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 .unreal-img {
     background-image: url("unreal.png");
@@ -44,7 +143,7 @@ h1 {
 .cry-img {
     background-image: url("cry.png");
     /* Full height */
-    height: 60%;
+    height: 80%;
     width: 100%;
     /* Center and scale the image nicely */
     background-position: center;
@@ -52,23 +151,24 @@ h1 {
     background-size: cover;
 }
 
-
-
-.row {
-}
-
-.container {
-    margin-top:75px;
-}
-
-.container-fluid {
-    height: 100%;
+.jumbotron-right-unity {
+    background-color:#ffffff !important;
     width: 100%;
+    height: 100%;
 }
+
+.jumbotron-left-unity {
+    background-color:rgba(255, 255, 255, 0.2) !important;
+    width: 100%;
+    height: 100%;
+}
+
 .col-pic {
-    width:50%;
-    height:40%;
+    width: 50%;
+    height: 40%;
 }
+
+/*Engine images end*/
 
 .small-img {
     background-image: url("1.jpg");
@@ -81,13 +181,8 @@ h1 {
     background-size: cover;
 }
 
-.jumbotron-left-unity {
-    background-image: url("2.jpg");
-}
 
-.jumbotron-right-unity {
-    background-image: url("3.jpg");
-}
+/*register and login*/
 
 .register_box {
     width: 320px;
@@ -108,10 +203,6 @@ h1 {
     margin-right: 10px;
     padding-top: 100px;
     vertical-align: central;
-}
-
-.navbar.fixed-top.navbar-expand-lg.navbar-dark {
-    background-color: #38150F;
 }
 
 .msg-send {
@@ -203,31 +294,14 @@ p.msg {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     margin-top: 200px;
 }
+/*register and login*/
 
-.pageContent {
-    margin-top: 35px;
+
+/* page content*/
+.page-content-wrapper {
     height:100%;
+    width:100%;
 }
 
 
-
-.list-heading {
-    font-size: 24px;
-    color:#DDA943;
-    background-color:#38150F;
-}
-
-
-.activated {
-    background-color:#DDA943;
-    color:#F4EFDC;  
-}
-
-.
-
-/*
-.col{
-    border: solid 1px black;
-    text-align: center;
-}*/
     

@@ -1,19 +1,107 @@
-body {
+body, html {
     width: 100%;
     height: 100%;
-    margin: 0;
-    background-color: #F4EFDC;
+    margin: 0px;
+    padding: 0px;
 }
 
-html {
+/*Navigation bar*/
+.engine-form {
+    margin-right:20px;
+    margin-top:18px;
+}
+
+.navbar-gdev {
+    background-color:rgba(0,0,0,0.88)
+}
+
+.nav-link {
+    font-size: 25px;
+    color: #fff !important;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+/*Main-main page*/
+.main {
+    overflow-x: hidden;
+    background-color: #e9dfe9;
+}
+
+.row-main {
+    height:30%;
+}
+
+.engine-name {
+    color: #28a5bb;
+}
+
+.engine-comment {
+    color: #4d7280;
+}
+
+.engine-button {
+    background-color:#28a5bb;
+    color:#fff;
+}
+
+.with-button {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0;
+}
+/*main-main page end*/
+
+/*main-engine page*/
+
+.engines {
+    overflow-x: hidden;
+    background-color: #7c767c;
+    width: 100%;
+}
+
+.container-engine{
+    height:70%;
+    width:100% !important;
+    padding:0px;
+    margin-top:-25px;
+}
+
+.engine-caption {
+    bottom: 50% !important;
+}
+
+.engine-caro {
     height:100%;
-    width:100%
+}
+
+.row-article {
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.jumbotron-black {
+   
 }
 
 
-h1 {
-    color:#DDA943;
+.shadow {
+    text-shadow: 1px 0 black, 0 -1px black, -1px 0 black, 0 1px black;
+    font-size: 40px;
 }
+
+.shadow-text {
+    text-shadow: 1px 0 black, 0 -1px black, -1px 0 black, 0 1px black;
+    font-size: 20px;
+}
+
+
+/* main-engine page end*/
+
+
+/*Sidebar*/
 
 #wrapper {
     padding-right: 0;
@@ -39,7 +127,7 @@ h1 {
     height: 100%;
     margin-right: -250px;
     overflow-y: auto;
-    background: #38150F;
+    background: #4d7280;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -61,6 +149,10 @@ h1 {
     margin-left: -250px;
 }
 
+.upper {
+    margin-top:-12px;
+}
+/* Sidebar ends */
 
 /* sidebar style */
 
@@ -74,6 +166,7 @@ h1 {
 }
 
 .sidebar-nav li {
+    margin-top:25px;
     text-indent: 20px;
     line-height: 40px;
 }
@@ -81,7 +174,7 @@ h1 {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #DDA943;
+    color: #fff;
     font-size: 20px;
 }
 
@@ -110,51 +203,26 @@ h1 {
     background: none;
 }
 
-/* end */
+/* sideabar style end */
 
+/*Engine images*/
 
-.unity-img {
-    background-image: url("unity.jpg");
-    /* Full height */
-    height: 60%;
-    width: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.col-left {
+    background-color:rgba(40, 165, 187, 0.5);
 }
 
-.unreal-img {
-    background-image: url("unreal.png");
-    /* Full height */
-    height: 60%;
+.jumbotron-right-unity, .jumbotron-left-unity {
+    background-color:transparent !important;
     width: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.cry-img {
-    background-image: url("cry.png");
-    /* Full height */
-    height: 60%;
-    width: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
-.container-fluid {
     height: 100%;
-    width: 100%;
 }
+
 .col-pic {
-    width:50%;
-    height:40%;
+    width: 50%;
+    height: 40%;
 }
+
+/*Engine images end*/
 
 .small-img {
     background-image: url("1.jpg");
@@ -167,26 +235,18 @@ h1 {
     background-size: cover;
 }
 
-.jumbotron-left-unity {
-    background-image: url("2.jpg");
-}
 
-.jumbotron-right-unity {
-    background-image: url("3.jpg");
-}
+/*register and login*/
 
 .register_box {
     width: 320px;
-    height: 450px;
-    background: #38150F;
-    color: #F4EFDC;
+    height: 600px;
+    color: #28a5bb;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    border: solid;
-    border-color: #DDA943;
 }
 
 .register_form {
@@ -196,35 +256,19 @@ h1 {
     vertical-align: central;
 }
 
-.navbar.fixed-top.navbar-expand-lg.navbar-dark {
-    background-color: #38150F;
-}
-
 .msg-send {
     margin-bottom: 10px;
-}
-
-.nav-link {
-    font-size:25px;
-    color:#DDA943 !important;  
-}
-
-.nav-item {
-    margin-left:20px;
 }
 
 .login_box {
     width: 320px;
     height: 380px;
-    background: #38150F;
-    color: #F4EFDC;
+    color: #28a5bb;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    border:solid;
-    border-color:#DDA943;
 }
 
 .login_form {
@@ -234,15 +278,6 @@ h1 {
     vertical-align: central;
 }
 
-
-.gdev-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    left: calc(50% - 50px);
-}
-
 .btn.btn-primary.register {
     margin-left:110px;
     background-color:#DDA943;
@@ -250,36 +285,16 @@ h1 {
 }
 
 .btn.btn-primary.login {
-    position: absolute;
-    left: calc(50% - 50px);
-    bottom: 40px;
     background-color: #DDA943;
     border-color: #F4EFDC;
     font-size: 20px;
+    margin-left: 100px;
 }
 
-.user-logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: solid 1px #F4EFDC;
-}
-
-.username {
-    color: #DDA943;
-    font-size: 60px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
-    padding-bottom:40px;
-}
-p.msg {
-    word-break: break-all;
-    white-space: normal;
-    background: #f4efea;
-}
 
 .no_account {
-    margin-left: 40px;
-    color: #F4EFDC;
+    margin-left:30px;
+    color: #28a5bb;
 }
 
 .btn.btn-primary.logout {
@@ -290,30 +305,53 @@ p.msg {
     margin-top: 200px;
 }
 
-.page-content-wrapper {
-    margin-top: 35px;
-    height:100%;
+/*register and login end*/
+
+/*Font awesome icons*/
+.bigger {
+    font-size:35px;
+}
+/*Font awesome icons end*/
+
+/*User page*/
+.username {
+    color: #DDA943;
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    padding-bottom: 40px;
 }
 
-
-
-.list-heading {
-    font-size: 24px;
-    color:#DDA943;
-    background-color:#38150F;
+#tab {
+    background-color:#4d7280;
 }
 
+.list-group-item {
+    background-color: #4d7280 !important;
+    color: #fff !important;
+}
 
 .activated {
-    background-color:#DDA943;
-    color:#F4EFDC;  
+    background-color:#fff !important;
+    color: #4d7280 !important;
 }
 
-.
+p.msg {
+    word-break: break-all;
+    white-space: normal;
+    background: #f4efea;
+}
 
-/*
-.col{
-    border: solid 1px black;
-    text-align: center;
-}*/
+/*User page ends*/
+
+/* page content*/
+.page-content-wrapper {
+    height:100%;
+    width:100%;
+    margin-top: 55px;
+}
+
+.lower {
+    margin-top: 55px;
+}
+
     

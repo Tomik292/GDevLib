@@ -15,20 +15,24 @@ Account
                 <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
                 <a href="{% url 'messages' %}" class="list-group-item list-group-item-action">Messages</a>
                 <a href="{% url 'articles' %}" class="list-group-item list-group-item-action activated">Articles</a>
-                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="" class="list-group-item list-group-item-action disabled">Premium</a>
                 <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
+                <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Logout</a>
             </div>
         </div>
 
         <div class="col-lg-7 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab">Released</a>
+                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab" id="tab">Released</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab">Saved</a>
+                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab" id="tab">Saved</a>
                 </li>
+                  {% if user.is_staff %}
+                <li class="nav-item">
+                    <a href="#verify" class="nav-link" role="tab" data-toggle="tab" id="tab">Not Verified</a>
+                </li>
+                  {% endif %}
             </ul>
 
 
@@ -101,6 +105,36 @@ Account
                         </tbody>
                     </table>
                 </div>
+                {% if user.is_staff %}
+                <div role="tabpanel" class="tab-pane" id="verify">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th> 
+                                <th scope="col">Engine</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for v_article in not_verified %}
+                            <tr>
+                                <th scope="row">
+                                    <a href="{% url 'article_detail' v_article.id %}">
+                                        <i class="fas fa-book"></i>
+                                    </a>
+                                </th>
+                                <td>{{v_article.name}}</td>
+                                <td>{{v_article.engine}}</td>
+                                <td>{{v_article.release_date|date:'d-m-Y'}}</td>
+                                <td>{{v_article.points}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
             </div>
         </div>
 

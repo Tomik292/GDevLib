@@ -28,7 +28,7 @@ Unity
         <span class="navbar-text">
             {% if user%}
              <a href="#menu-toggle"  id="menu-toggle">
-                <i class="fas fa-user-circle bigger"></i> 
+                <i class="fas fa-user-circle bigger"></i>
              </a>
             {% else %}
              <a href="{% url 'login'%}"><i class="fas fa-sign-in-alt bigger"></i></a> 
@@ -76,38 +76,8 @@ Unity
         </a>
     </div>
     </div>
-    <div class="row row-main">
-        <div class="col col-right">
-        <div class="jumbotron jumbotron-left-unity">
-            <h1 class="display-4">Graphic</h1>
-            <p class="lead">How to do cool graphic desing in Unity? Animations, models etc.</p>
-            <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Desing!</a>
-            </p>
-        </div>
-        </div>
-        <div class="col col-left">
-        <div class="jumbotron jumbotron-right-unity">
-            <h1 class="display-4">Script</h1>
-            <p class="lead">Do you prefer the logic behind the masterpiece? Scripts, Algorithms, AI etc. </p>
-            <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Code!</a>
-            </p>
-        </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-         <div class="jumbotron jumbotron-fluid jumbotron-black">
-          <div class="container">
-            <h1 class="display-4 with-button">Write your own Article!</h1>
-              <button type="button" class="btn btn-outline-primary btn-lg with-button">Learn More!</button>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            <h2>Or read created articles down below! <i class="fas fa-chevron-circle-down"></i></h2>
-          </div>
-         </div>
-        </div>
-    </div>
+    {% if articles %}
+    <h1>Results</h1>
     <div class="row row-article">
         {% for article in articles %}
         <div class="col-md-3">
@@ -124,6 +94,9 @@ Unity
               </div>
         </div>
         {% endfor %}
+    {% else %}
+        <h1>No Results found </h1>
+    {% endif %}
     </div>
 
 {% endblock %}

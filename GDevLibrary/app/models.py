@@ -27,9 +27,7 @@ class Category(models.Model):
 
 class UserExtension(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField()
     bio = models.TextField(max_length=500)
-    favorite_categories = models.ManyToManyField(Category)
     location = models.CharField(max_length=50)
 
     @receiver(post_save, sender=User)
@@ -49,10 +47,10 @@ def upload_location(instance):
 
 class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    name = models.CharField(max_length = 50)
+    name = models.CharField(max_length = 50, default = "")
     engine = models.CharField(choices=ENGINE_CHOICES, max_length = 10)
-    text = models.TextField(max_length = 10000)
-    tags = models.TextField(max_length = 200)
+    overview = models.TextField(max_length = 100, default = "")
+    text = models.TextField(max_length = 10000, default = "")
     picture = models.ImageField(null=True, blank = True, width_field = 'pic_width', height_field = 'pic_height')
     pic_height = models.IntegerField(default = 0)
     pic_width = models.IntegerField(default = 0)
@@ -62,7 +60,7 @@ class Article(models.Model):
     release_date = models.DateTimeField(default = datetime.datetime.now())
 
     def __str__(self):
-       return "Article " + self.name + " by " + str(self.user) + " " + str(self.points) + " points"
+       return "Article " + self.name + " by " + str(self.user) + " " + str(self.points) + " points, Engine: " + str(self.engine) 
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)

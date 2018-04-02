@@ -17,11 +17,8 @@ from django.conf.urls import include
 from django.contrib import admin
 
 urlpatterns = [ 
-    # /
-    url(r'^$',
-       views.home,
-       name='home'),
 
+    # user authetication
     # /login/
     url(r'^login/$',
         views.UserLoginView,
@@ -37,27 +34,35 @@ urlpatterns = [
     url(r'^register/$',
         views.UserRegisterView,
         name='register'),
-
-    #/user/id
-    #url(r'^user/id(?P<id>\d+)/',
-    #    views.user_view,
-    #    name='user_view'),
+     
+    # Defualt page and engine pages
+    # /
+    url(r'^$',
+       views.home,
+       name='home'),
 
     # /unity/
-    url(r'^unity/',
+    url(r'^unity/$',
        views.main_unity,
        name='main_unity'),
     
     # /cry/
-    url(r'^cry/',
+    url(r'^cry/$',
        views.main_cry,
        name='main_cry'),
    
     # /unreal/
-    url(r'^unreal/',
+    url(r'^unreal/$',
        views.main_unreal,
        name='main_unreal'),
 
+    # /other/
+    url(r'^other/$',
+        views.main_other,
+        name='main_other'),
+
+
+    #Logged in user pages
 
     # /account/profile/
     url(r'^account/profile/$',
@@ -69,7 +74,7 @@ urlpatterns = [
         views.messages,
         name='messages'),
 
-    # /account/messages/1 
+    # /account/messages/msg[number] 
     url(r'^account/messages/msg(?P<id>\d+)/$',
         views.message_detail,
         name='message_detail'),
@@ -84,24 +89,23 @@ urlpatterns = [
         views.articles,
         name='articles'),
 
-         # /account/articles
+    # /account/articles/[number]
     url(r'^account/articles/(?P<article_id>[0-9]+)/$',
         views.article_detail,
         name='article_detail'),
 
+    # /account/create/article
     url(r'^account/create_article/$',
         views.create_article,
         name='create_article'),
 
-     # /account/favorites
-    url(r'^account/favorites/$',
-        views.favorites,
-        name='favorites'),
 
      # /account/settings
     url(r'^account/settings/$',
         views.settings,
         name='settings'),
+
+
 
 
 
@@ -111,6 +115,11 @@ urlpatterns = [
     # Uncomment the next line to enable the admin:
     # /admin/
     url(r'^admin/', admin.site.urls),
+
+        #/user/id
+    #url(r'^user/id(?P<id>\d+)/',
+    #    views.user_view,
+    #    name='user_view'),
 
 
 ]
