@@ -26,26 +26,25 @@ Account
                 <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
                 <a href="{% url 'messages' %}" class="list-group-item list-group-item-action activated">Messages</a>
                 <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
-                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="#" class="list-group-item list-group-item-action disabled">Premium</a>
                 <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
+                <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Logout</a>
             </div>
         </div>
 
         <div class="col-lg-9 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab">Sent</a>
+                    <a href="#home" class="nav-link active" role="tab" data-toggle="tab" id="tab">Sent</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab">Delivered 
+                    <a href="#profile" class="nav-link" role="tab" data-toggle="tab" id="tab">Delivered 
                     {% if not_seen.count > 0 %} 
                     - {{not_seen.count}} 
                     {% endif %}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#contact" class="nav-link" role="tab" data-toggle="tab">Article Comments</a>
+                    <a href="#contact" class="nav-link" role="tab" data-toggle="tab" id="tab">Article Comments</a>
                 </li>
             </ul>
 

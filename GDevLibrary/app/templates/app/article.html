@@ -7,21 +7,8 @@ Account
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
-            <div class="list-group">
-                <h2 href="#" class="list-group-item list-heading">
-                    {{user.first_name}}' messages
-                </h2>
-                <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
-                <a href="{% url 'messages' %}" class="list-group-item list-group-item-action activated">Messages</a>
-                <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
-                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="#" class="list-group-item list-group-item-action disabled">Premium</a>
-                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
-            </div>
-        </div>
 
-        <div class="col-lg-9 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+        <div class="col-lg-12 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
             <h1>{{article.name}}</h1>
             <h3>By: {{article.user.username}}</h3>
             <img src="{{article.picture.url}}" class="img-thumbnail" width="100" height="100">

@@ -9,7 +9,6 @@ Login
 {% block content %}
 
 <div class="login_box">
-    <img src="{% static "app/content/GdevlogowBackground.png" %}" class="gdev-avatar"/>
     <form action="" method="post" class="login_form">
         {% csrf_token %}
         {{ form|crispy }}

@@ -19,7 +19,7 @@
 
 <body>
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-gdev">
       <a class="navbar-brand" href="{% url 'home'%}">
         <img src="{% static "app/content/gdevname.png" %}" width="180" height="40"/>
       </a>
@@ -37,14 +37,17 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'main_cry' %}">Cry Engine</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'main_other' %}">Other</a>
+          </li>
         </ul>
         <span class="navbar-text">
             {% if user%}
              <a href="#menu-toggle"  id="menu-toggle">
-                <img src="{% static "app/content/GdevlogowBackground.png"%}" class="gdev-logo" width="50" height="50"/> 
+                <i class="fas fa-user-circle bigger"></i> 
              </a>
             {% else %}
-             <a href="{% url 'login'%}">Log in</a> 
+             <a href="{% url 'login'%}"><i class="fas fa-user-circle bigger"></i></a> 
             {% endif %}
         </span>
       </div>
@@ -53,54 +56,30 @@
     <div id="wrapper">
 
         {% if user %}
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper" class="upper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><img src="{% static "app/content/gdevname.png" %}" width="180" height="40"/></li>
                 <li><a href="{% url 'account'%}">Account</a></li>
                 <li><a href="{% url 'messages'%}">Messages</a></li>
-                <li><a href="{% url 'articles'%}s">Articles</a></li>
-                <li><a href="{% url 'favorites'%}">Favorites</a></li>
+                <li><a href="{% url 'articles'%}">Articles</a></li>
                 <li><a href="{% url 'logout'%}">Logout</a></li>
             </ul>
         </div>
         {% endif %}
    
-        <div class="page-content-wrapper">
+        <div class="page-content-wrapper lower">
         {% block content %}
         {% endblock %}
         </div>
 
     </div>
+
+    
 <script>
     $('document').ready(() => {
          $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
-        })
-
-        $('#heading-1').on('click', () => {
-            $('#id_text').append("h1| |");
-        })
-        $('#heading-2').on('click', () => {
-            $('#id_text').append("h2| |");
-        })
-         $('#heading-3').on('click', () => {
-            $('#id_text').append("h3| |");
-         })
-         $('#heading-4').on('click', () => {
-            $('#id_text').append("h4| |");
-        })
-        $('#button-text').on('click', () => {
-            $('#id_text').append("p| |");
-        })
-        $('#button-link').on('click', () => {
-            $('#id_text').append("a| |");
-        })
-        $('#button-pic').on('click', () => {
-            $('#id_text').append("pic| |");
-        })
-        $('#button-code').on('click', () => {
-            $('#id_text').append("code| |");
         })
     });
 </script>
