@@ -13,7 +13,7 @@ Account
             <h3>By: {{article.user.username}}</h3>
             <img src="{{article.picture.url}}" class="img-thumbnail" width="100" height="100">
             <hr/>
-            {{article.text}}
+            {{html|safe}}
         </div>
     </div>
 </div>
