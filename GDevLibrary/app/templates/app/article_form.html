@@ -39,4 +39,73 @@ Account
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(() => {
+        $('#button-text').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|p| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-link').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|a| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-pic').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|img| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-code').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|code| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-1').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h1| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-2').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h2| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-3').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h3| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-4').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h4| |' + text_after;
+            $('#id_text').val(text);
+        });
+    });
+ </script>
 {% endblock %}

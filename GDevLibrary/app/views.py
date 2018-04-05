@@ -12,8 +12,9 @@ from django.views.generic import View
 from django.core.mail import send_mail
 
 from .forms import UserForm, LoginForm, MessageForm, ArticleForm, UserExtensionForm, SearchForm
-from .utils import UserCheck
+from .utils import UserCheck, MakeHTML
 from .models import Message, Article
+
 
 def UserRegisterView(request):
     u = UserCheck(request)
@@ -398,11 +399,9 @@ def create_article(request):
                 engine = form.cleaned_data['engine'],
                 picture = form.cleaned_data['picture'],
                 text = form.cleaned_data['text'],
-                tags = form.cleaned_data['tags'],
-                # picture = form.cleaned_data['picture'],
+                overview = form.cleaned_data['overview'],
                 verified = False,
                 released = True,
-                release_date = datetime.now(),
                 )
             return redirect('articles')
     if 'SAVE' in request.POST:
@@ -413,11 +412,9 @@ def create_article(request):
                 engine = form.cleaned_data['engine'],
                 picture = form.cleaned_data['picture'],
                 text = form.cleaned_data['text'],
-                tags = form.cleaned_data['tags'],
-                # picture = form.cleaned_data['picture'],
+                overview = form.cleaned_data['overview'],
                 verified = False,
                 released = False,
-                release_date = datetime.now(),
                 )
             return redirect('articles')
 
@@ -438,9 +435,12 @@ def article_detail(request, article_id):
 
     article = get_object_or_404(Article, pk=article_id)
 
+    html = MakeHTML(article.text)
+
     context = {
          'user':u,
-         'article':article
+         'article':article,
+         'html':html,
          }
 
     return render(
