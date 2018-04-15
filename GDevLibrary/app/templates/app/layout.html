@@ -17,7 +17,7 @@
 {% endblock %}
 </head>
 
-<body>
+<body class="layout">
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-gdev">
       <a class="navbar-brand" href="{% url 'home'%}">
@@ -43,11 +43,11 @@
         </ul>
         <span class="navbar-text">
             {% if user%}
-             <a href="#menu-toggle"  id="menu-toggle">
+             <a class="bluer" href="#menu-toggle"  id="menu-toggle">
                 <i class="fas fa-user-circle bigger"></i> 
              </a>
             {% else %}
-             <a href="{% url 'login'%}"><i class="fas fa-user-circle bigger"></i></a> 
+             <a class="bluer" href="{% url 'login'%}"><i class="fas fa-user-circle bigger"></i></a> 
             {% endif %}
         </span>
       </div>

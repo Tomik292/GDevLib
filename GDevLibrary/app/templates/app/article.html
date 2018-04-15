@@ -1,7 +1,10 @@
 ﻿{% extends "app/layout.html" %}
 
+{% load static %}
+{% load crispy_forms_tags %}
+
 {% block title %}
-Account
+{{article.name}}
 {% endblock %}
 
 {% block content %}
@@ -9,12 +12,59 @@ Account
     <div class="row">
 
         <div class="col-lg-12 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
-            <h1>{{article.name}}</h1>
-            <h3>By: {{article.user.username}}</h3>
-            <img src="{{article.picture.url}}" class="img-thumbnail" width="100" height="100">
-            <hr/>
             {{html|safe}}
+            {% if user.is_staff and not article.verified and user.username != article.user.username %}
+            <a href="{% url 'verify_article' article.id %}" class="btn btn-primary btn-block">Verify article</a>
+            {% endif %}
+            {% if user.username == article.user.username %}
+            <a href="{% url 'create_article_saved' article.id %}" class="btn btn-primary btn-block">Modify article</a>
+            {% endif %}
+            <hr/>
+            <div style="clear:both">
+                <h3 style="float:left">By: {{article.user.first_name}} {{article.user.last_name}}</h3>
+                <h4 style="float:right">{{article.release_date|date:'d-m-Y'}}</h4>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12">
+             <hr/>
+            {% if user %}
+            <form action="" method="post" class="comment_form">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <button type="submit" class="btn btn-primary" name="COMMENT">Comment</button>
+            </form>
+            {% else %}
+                <h4>Want to comment? <a href="{% url 'login' %}">Login!</a> </h4>
+            {% endif %}
         </div>
     </div>
+    {% for comment in comments %}
+    <div class="row">
+        <br/>
+        <div class="col-lg-10">
+            <div class="white-back">
+                <p>{{comment.text}}</p>
+                <p class="text-right"><a href="{% url 'user_view' comment.user.username %}"> {{comment.user}} </a>{{comment.time}}</p>
+            </div>
+            {% for subcomment in subcomments%}
+            {% if subcomment.comment.id == comment.id %}
+            <div class="sub-comment-white-back" id="subcomments">
+                <p class="inline">{{subcomment.text}}</p>
+                <p class="inline"> by <a href="{% url 'user_view' subcomment.user.username %}">{{comment.user}}</a></p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <hr/>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-primary btn-block">Reply!</button> 
+        </div>
+    </div>
+{% endfor %}
 </div>
+
+<script>
+</script>
 {% endblock %}

@@ -88,7 +88,7 @@ Account
                            {% for s_article in saved %}
                             <tr>
                                 <th scope="row">
-                                    <i class="fas fa-book"></i>
+                                    <a href="{% url 'create_article_saved' s_article.id %}"><i class="fas fa-book"></i></a>
                                 </th>
                                 <td>{{s_article.name}}</td>
                                 <td>{{s_article.engine}}</td>
@@ -139,7 +139,7 @@ Account
         </div>
 
         <div class="col-lg-2">
-            <a class="btn btn-primary msg-send" href="{% url 'create_article' %}" role="button">New Article</a>
+            <a class="btn btn-primary msg-send bluer-btn" href="{% url 'create_article_tag' %}" role="button">New Article</a>
         </div>
     </div>
 </div>

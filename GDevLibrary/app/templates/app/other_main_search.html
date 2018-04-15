@@ -23,15 +23,15 @@ Unity
         <form class="form-inline engine-form" method="post" action="">
             {% csrf_token %}
             {{ form|crispy }}
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-primary btn-bluer" type="submit">Search</button>
          </form>
         <span class="navbar-text">
             {% if user%}
-             <a href="#menu-toggle"  id="menu-toggle">
+             <a class="bluer" href="#menu-toggle"  id="menu-toggle">
                 <i class="fas fa-user-circle bigger"></i> 
              </a>
             {% else %}
-             <a href="{% url 'login'%}"><i class="fas fa-sign-in-alt bigger"></i></a> 
+             <a class="bluer" href="{% url 'login'%}"><i class="fas fa-sign-in-alt bigger"></i></a> 
             {% endif %}
         </span>
       </div>
@@ -82,12 +82,17 @@ Unity
         {% for article in articles %}
         <div class="col-md-3">
              <div class="card mb-3 box-shadow">
-                <img class="card-img-top" src="{{article.picture.url}}" a width="250" height="180">
+                <img class="card-img-top" src="
+                     {% if article.picture %}
+                     {{article.picture.url}}
+                     {% else %}
+                     {% static "app/content/other.png"%}
+                     {% endif %}"  width="250" height="180">
                 <div class="card-body">
                   <h4>{{article.name}}</h4>
                    <p>fgadsklfjdsaklůfjasdklfjasdlůf</p>
                   <div class="d-flex justify-content-between align-items-center">
-                     <a class="btn btn-outline-primary" href="{% url 'article_detail' article.id %}" role="button">Read!</a>
+                     <a class="btn btn-outline-primary btn-bluer" href="{% url 'article_detail' article.id %}" role="button">Read!</a>
                     <small class="text-muted">{{article.points}} points</small>
                   </div>
                 </div>

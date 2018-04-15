@@ -9,19 +9,27 @@ Account
 
 {% block content %}
 <div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-2 col-lg-offset-5">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a href="{% url 'create_article_tag' %}" class="btn btn-primary btn-lg bluer-btn-stack">TAG Mode</a>
+              <a href="{% url 'create_article_html' %}" class="btn btn-primary btn-lg bluer-btn-stack">HTML Mode</a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-9 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
         <form action="" method="post" class="article_form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-primary" name="CREATE">Create Article</button>
-            <button type="submit" class="btn btn-primary" name="SAVE">Save Article</button>
+            <button type="submit" class="btn btn-primary bluer-btn" name="CREATE">Create Article</button>
+            <button type="submit" class="btn btn-primary bluer-btn" name="SAVE">Save Article</button>
         </form>
         </div>
         <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
             <br>
             <div class="dropdown">
-              <button class="btn dropdown-toggle btn-primary btn-lg btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn dropdown-toggle btn-primary bluer-btn btn-lg btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Headings
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -32,10 +40,10 @@ Account
               </div>
             </div>
             <br>
-            <button id="button-text" type="submit" class="btn btn-primary btn-lg  btn-block" >Text</button>
-            <button id="button-link" type="submit" class="btn btn-primary btn-lg  btn-block">HyperText</button>
-            <button id="button-pic" type="submit" class="btn btn-primary btn-lg  btn-block">Picture</button>
-            <button id="button-code" type="submit" class="btn btn-primary btn-lg  btn-block">Code</button>
+            <button id="button-text" type="submit" class="btn btn-primary btn-lg bluer-btn btn-block" >Text</button>
+            <button id="button-link" type="submit" class="btn btn-primary btn-lg bluer-btn btn-block">HyperText</button>
+            <button id="button-pic" type="submit" class="btn btn-primary btn-lg bluer-btn btn-block">Picture</button>
+            <button id="button-code" type="submit" class="btn btn-primary btn-lg bluer-btn btn-block">Code</button>
         </div>
     </div>
 </div>

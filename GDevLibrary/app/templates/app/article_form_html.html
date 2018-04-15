@@ -1,0 +1,100 @@
+﻿{% extends "app/layout.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-2 col-lg-offset-5">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a href="{% url 'create_article_tag' %}" class="btn btn-primary btn-lg bluer-btn-stack">TAG Mode</a>
+              <a href="{% url 'create_article_html' %}" class="btn btn-primary btn-lg bluer-btn-stack">HTML Mode</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
+        <form action="" method="post" class="article_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary bluer-btn" name="CREATE">Create Article</button>
+            <button type="submit" class="btn btn-primary bluer-btn" name="SAVE">Save Article</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#button-text').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|p| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-link').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|a| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-pic').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|img| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#button-code').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|code| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-1').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h1| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-2').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h2| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-3').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h3| |' + text_after;
+            $('#id_text').val(text);
+        });
+        $('#heading-4').on('click', () => {
+            var cursor_pos = $('#id_text').prop('selectionStart');
+            var text = $('#id_text').val();
+            var text_before = text.substring(0, cursor_pos);
+            var text_after = text.substring(cursor_pos, text.length);
+            text = text_before + '|h4| |' + text_after;
+            $('#id_text').val(text);
+        });
+    });
+ </script>
+{% endblock %}

@@ -73,7 +73,7 @@ Account
                                 <td>{{msg.recipient}}</td>
                                 <td>{{msg.subject}}</td>
                                 <td colspan="2">{{msg.text|truncatechars:9}}</td>
-                                <td>{{msg.sedingTime|date:'H:i d-m-Y'}} {{msg.seen}}</td>
+                                <td>{{msg.sedingTime|date:'H:i d-m-Y'}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -127,7 +127,7 @@ Account
                         <tbody></tbody>
                     </table>
                 </div>
-                <a class="btn btn-primary msg-send" href="{% url 'message_form' %}" role="button">Send Message</a>
+                <a class="btn btn-primary msg-send bluer-btn" href="{% url 'message_form' %}" role="button">Send Message</a>
             </div>
         </div>
     </div>

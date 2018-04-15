@@ -26,7 +26,7 @@ body, html {
 
 /*Main-main page*/
 .main {
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: #e9dfe9;
 }
 
@@ -45,6 +45,7 @@ body, html {
 .engine-button {
     background-color:#28a5bb;
     color:#fff;
+    margin-bottom:20px;
 }
 
 .with-button {
@@ -52,13 +53,33 @@ body, html {
     vertical-align: middle;
     margin: 10px 0;
 }
+
+.btn-bluer{
+    color:#28a5bb !important;
+    border-color:#28a5bb !important;
+}
+
+.bluer-btn{
+    background-color:#28a5bb !important;
+    border-color:#28a5bb !important;
+}
+
+.bluer {
+    color: #28a5bb;
+}
+
+.bluer-btn-stack{
+    background-color: #28a5bb !important;
+    border-color: #F4EFDC !important;
+}
+
 /*main-main page end*/
 
 /*main-engine page*/
 
 .engines {
     overflow-x: hidden;
-    background-color: #7c767c;
+    background-color: #F4EFDC;
     width: 100%;
 }
 
@@ -280,12 +301,12 @@ body, html {
 
 .btn.btn-primary.register {
     margin-left:110px;
-    background-color:#DDA943;
+    background-color:#28a5bb;
     border-color:#F4EFDC;
 }
 
 .btn.btn-primary.login {
-    background-color: #DDA943;
+    background-color: #28a5bb;
     border-color: #F4EFDC;
     font-size: 20px;
     margin-left: 100px;
@@ -295,14 +316,6 @@ body, html {
 .no_account {
     margin-left:30px;
     color: #28a5bb;
-}
-
-.btn.btn-primary.logout {
-    background-color: #DDA943;
-    border-color: #F4EFDC;
-    font-size: 30px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
-    margin-top: 200px;
 }
 
 /*register and login end*/
@@ -341,6 +354,22 @@ p.msg {
     background: #f4efea;
 }
 
+.layout {
+    background-color: #f2f6f7;
+}
+
+.white-back {
+    background-color: #fff !important;
+    margin-bottom: 10px;
+}
+
+.sub-comment-white-back{
+    background-color:#fff !important;
+}
+
+.inline{
+    display:inline;
+}
 /*User page ends*/
 
 /* page content*/
@@ -354,4 +383,39 @@ p.msg {
     margin-top: 55px;
 }
 
+/* page content end*/
+
+/* Article stuff*/
+.a_p {
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+}
+
+.a_h1 {
+    font-size: 50px;
+    font-family: Helvetica, Arial;
+    font-weight:bold;
+}
+
+.a_h2 {
+    font-size: 45px;
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+}
+
+.a_h3 {
+    font-size: 40px;
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+}
+
+.a_h4 {
+    font-size: 35px;
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+}
+
+
+
+/* Article stuff ends*/
     
