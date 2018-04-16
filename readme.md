@@ -14,7 +14,7 @@ As an aministrator you can:
 * Do all the thing a registered user can
 * Confirm(Verify) all written articles but yours
 
-The runing page can be seen [Here!](http://tomcek292.pythonanywhere.com/)
+The runing page can be seen [Here!](http://tomcek.pythonanywhere.com/)
 
 To run this project you need to do a couple of simple things.
 
