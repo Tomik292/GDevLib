@@ -18,7 +18,7 @@ from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from .forms import *
 from .utils import UserCheck, MakeHTML, filter_articles
-from .models import Message, Article, Comment
+from .models import Message, Article, Comment, Voter
 
 
 def UserRegisterView(request):
@@ -416,6 +416,10 @@ def user_view(request, username):
         'app/user_page.html',
         context)
 
+def delete_article(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    article.delete()
+    return redirect('articles')
 
 def articles(request):
     """ Renders the articles page """
@@ -423,6 +427,9 @@ def articles(request):
     saved_art = Article.objects.filter(user = u, released = False) 
     released_art = Article.objects.filter(user = u, released = True) 
     not_verified = Article.objects.filter(verified = False)
+
+
+
 
     print(not_verified)
 
@@ -612,6 +619,17 @@ def article_detail(request, article_id):
 
     comments = Comment.objects.filter(article = article)
 
+    dummy_voter = Voter.objects.filter(article = article, user = u)
+    if dummy_voter.exists():
+        voter = get_object_or_404(Voter, pk=dummy_voter[0].id)
+        if voter.value:
+            vote = 1
+        else: 
+            vote = 2
+    else: 
+        vote = 0
+        voter = None
+
     subcomments = []
 
     for comment in comments:
@@ -623,9 +641,10 @@ def article_detail(request, article_id):
         html = article.text
     
     if request.method == "POST":
+        comment_form = CommentForm()
+        subcomment_form = SubCommentForm()
         if 'COMMENT' in request.POST:
             comment_form = CommentForm(request.POST)
-            subcomment_form = SubCommentForm()
             if comment_form.is_valid():
                 Comment.objects.create(
                     user = u,
@@ -634,20 +653,40 @@ def article_detail(request, article_id):
                     time = datetime.now(),
                     )
         if 'SUBCOMMENT' in request.POST:
-            comment_form = ()
             subcomment_form = SubCommentForm(request.POST)
+            subs_comment = get_object_or_404(Comment, pk=request.POST.get("comment_id"))
             if subcomment_form.is_valid():
                 SubComment.objects.create(
                         user = u, 
-                        comment = None,
+                        comment = subs_comment,
                         text = subcomment_form.cleaned_data["text"],
                         time = datetime.now(),
                      )
+        if 'UP' in request.POST:
+            article.points += 1
+            article.save()
+            vote = 1
+            if voter:
+                voter.value = True
+                voter.save()
+            else:
+                voter = Voter.objects.create(user = u, article = article, value = True)
+
+        if 'DOWN' in request.POST:
+            article.points -= 1
+            article.save()
+            vote = 2
+            if voter:
+                voter.value = False
+                voter.save()
+            else:
+                voter = Voter.objects.create(user = u, article = article)
     else:
         comment_form = CommentForm()
         subcomment_form = SubCommentForm()
 
     context = {
+         'vote':vote,
          'user':u,
          'article':article,
          'html':html,

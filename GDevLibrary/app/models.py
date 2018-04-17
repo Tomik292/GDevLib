@@ -58,7 +58,7 @@ VOTE_CHOICES = (
 )
 
 class Article(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 50, default = "")
     engine = models.CharField(choices=ENGINE_CHOICES, max_length = 10)
     overview = models.TextField(max_length = 300, default = "")
@@ -77,7 +77,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     text = models.TextField(max_length = 500)
     time = models.DateTimeField(default = datetime.datetime.now())
@@ -86,7 +86,7 @@ class Comment(models.Model):
        return "Comment on article "+ str(self.article.name) + " by " + str(self.user)
 
 class SubComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     text = models.TextField(max_length = 500)
     time = models.DateTimeField(default = datetime.datetime.now())
@@ -94,6 +94,9 @@ class SubComment(models.Model):
     def __str__(self):
        return "Subcomment from " +  str(self.user) + " on " + str(self.comment.article.name) + " article"  
 
-
+class Voter(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    value = models.BooleanField(default = False)
 
     

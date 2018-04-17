@@ -97,7 +97,7 @@ class CommentForm(forms.ModelForm):
 
 class SubCommentForm(forms.ModelForm):
 
-    text = forms.CharField(max_length = 500, label = 'Reply:', widget=forms.Textarea, required = False)
+    text = forms.CharField(max_length = 500, label = 'Reply:', widget=forms.Textarea(attrs={'rows':2, 'cols':15}), required = False)
 
     class Meta:
 

@@ -89,6 +89,10 @@ urlpatterns = [
         views.articles,
         name='articles'),
 
+    url(r'account/articles/(?P<article_id>[0-9]+)/delete/$',
+        views.delete_article,
+        name='delete_article'),
+
     # /articles/[number]
     url(r'^articles/(?P<article_id>[0-9]+)/$',
         views.article_detail,

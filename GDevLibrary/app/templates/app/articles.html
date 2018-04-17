@@ -47,6 +47,7 @@ Account
                                 <th scope="col">Verified</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Points</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +69,7 @@ Account
                                 </td>
                                 <td>{{r_article.release_date|date:'d-m-Y'}}</td>
                                 <td>{{r_article.points}}</td>
+                                <td><a class="btn btn-primary bluer-btn" href="{% url 'delete_article' article_id=r_article.id %}">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -115,6 +117,7 @@ Account
                                 <th scope="col">Engine</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Points</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,6 +132,7 @@ Account
                                 <td>{{v_article.engine}}</td>
                                 <td>{{v_article.release_date|date:'d-m-Y'}}</td>
                                 <td>{{v_article.points}}</td>
+                                <td><a class="btn btn-primary bluer-btn" href="{% url 'delete_article' article_id=v_article.id %}">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

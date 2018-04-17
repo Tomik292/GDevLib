@@ -9,15 +9,23 @@
 
 {% block content %}
 <div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-2">
+         <form action="" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg bluer-btn" name="UP" {% if vote == 1%}disabled{% endif %}><i class="fas fa-thumbs-up"></i></button>
+                <button type="submit" class="btn btn-primary btn-lg bluer-btn" name="DOWN" {% if vote == 2 %}disabled{% endif %}><i class="fas fa-thumbs-down"></i></button>
+            </form>
+        </div>
+    </div>
     <div class="row">
-
         <div class="col-lg-12 col-md-4 col-sm-4 col-xs-5" style="padding:0px">
             {{html|safe}}
             {% if user.is_staff and not article.verified and user.username != article.user.username %}
             <a href="{% url 'verify_article' article.id %}" class="btn btn-primary btn-block">Verify article</a>
             {% endif %}
             {% if user.username == article.user.username %}
-            <a href="{% url 'create_article_saved' article.id %}" class="btn btn-primary btn-block">Modify article</a>
+            <a href="{% url 'create_article_saved' article.id %}" class="btn btn-primary btn-block bluer-btn">Modify article</a>
             {% endif %}
             <hr/>
             <div style="clear:both">
@@ -33,7 +41,7 @@
             <form action="" method="post" class="comment_form">
                 {% csrf_token %}
                 {{ comment_form|crispy }}
-                <button type="submit" class="btn btn-primary" name="COMMENT">Comment</button>
+                <button type="submit" class="btn btn-primary bluer-btn" name="COMMENT">Comment</button>
             </form>
             {% else %}
                 <h4>Want to comment? <a href="{% url 'login' %}">Login!</a> </h4>
@@ -50,21 +58,35 @@
             </div>
             {% for subcomment in subcomments%}
             {% if subcomment.comment.id == comment.id %}
-            <div class="sub-comment-white-back" id="subcomments">
+            <div class="sub-comment-white-back">
                 <p class="inline">{{subcomment.text}}</p>
                 <p class="inline"> by <a href="{% url 'user_view' subcomment.user.username %}">{{comment.user}}</a></p>
             </div>
             {% endif %}
             {% endfor %}
+            <form action="" method="post" id="subform{{comment.id}}"  style="display:none">
+                {% csrf_token %}
+                {{subcomment_form|crispy}}
+                <input type="hidden" name="comment_id" value="{{comment.id}}">
+                <button type="submit" class="btn btn-primary bluer-btn" name="SUBCOMMENT">Comment</button> 
+            </form>
             <hr/>
         </div>
         <div class="col-lg-2">
-            <button type="button" class="btn btn-primary btn-block">Reply!</button> 
+            <button type="button" class="btn btn-primary btn-block bluer-btn" id="reply{{comment.id}}">Reply!</button> 
         </div>
     </div>
 {% endfor %}
 </div>
 
 <script>
+    $(document).ready(() => {
+    {% for comment in comments %}
+    console.log({{comment.id}})
+        $('#reply{{comment.id}}').click(() => {
+           $('#subform{{comment.id}}').toggle();
+        });
+    {% endfor %}
+    });
 </script>
 {% endblock %}
