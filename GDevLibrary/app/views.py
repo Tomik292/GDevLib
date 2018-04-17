@@ -1,43 +1,51 @@
 from datetime import datetime
 
 from django.conf import settings as conf_settings
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.template import RequestContext, loader
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
 from django.views.generic import View
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
-from .forms import UserForm, LoginForm, MessageForm, ArticleForm, UserExtensionForm, SearchForm
-from .utils import UserCheck, MakeHTML
-from .models import Message, Article
+from .tokens import account_activation_token
+from .forms import *
+from .utils import UserCheck, MakeHTML, filter_articles
+from .models import Message, Article, Comment, Voter
 
 
 def UserRegisterView(request):
     u = UserCheck(request)
-    template_name = 'app/register.html'
     if request.method == 'POST': 
         form = UserForm(request.POST)
         if form.is_valid():
-            user = form.save(commit = False) 
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            email = form.cleaned_data['email']
-            user.set_password(password)
+            user = form.save(commit=False) 
+            user.is_active = False
             user.save()
 
-            send_mail(
-             'Welcome to GDevLibrary',
-             'Click on this lick for your email authetizatation',
-             conf_settings.EMAIL_HOST_USER,
-              [email, conf_settings.EMAIL_HOST_USER],
-              fail_silently = False
-             )
+            user_email = form.cleaned_data['email']
 
-            return redirect('login')
+            current_site = get_current_site(request)
+            mail_subject = "Welcome to GDevlibrary"
+            message = render_to_string('app/acc_active_email.html', {
+                'user':user,
+                'domain':current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':account_activation_token.make_token(user),
+                })
+            email = EmailMessage(
+                    mail_subject, message, to=[user_email]
+                )
+            email.send()
+            
+            return HttpResponse('Please confirm your email adress to comeplete registration')
     else:
         form = UserForm()
 
@@ -46,7 +54,23 @@ def UserRegisterView(request):
         'user':u 
         }
 
-    return render(request, template_name, content)
+    return render(request, 'app/register.html', content)
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk = uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 def UserLoginView(request):
     u = UserCheck(request)
@@ -94,7 +118,8 @@ def main_unity(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             key_words = form.cleaned_data['key_words']
-        articles = Article.objects.filter(text__icontains = key_words)
+        
+        articles = filter_articles(key_words,"UNITY")
 
         context = { 
             'user':u,
@@ -130,7 +155,8 @@ def main_unreal(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             key_words = form.cleaned_data['key_words']
-        articles = Article.objects.filter(text__icontains = key_words)
+
+        articles = filter_articles(key_words,"UNREAL")
 
         context = { 
             'user':u,
@@ -165,7 +191,8 @@ def main_cry(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             key_words = form.cleaned_data['key_words']
-        articles = Article.objects.filter(text__icontains = key_words)
+        
+        articles = filter_articles(key_words,"CRY")
 
         context = { 
             'user':u,
@@ -200,7 +227,8 @@ def main_other(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             key_words = form.cleaned_data['key_words']
-        articles = Article.objects.filter(text__icontains = key_words)
+
+        articles = filter_articles(key_words,"OTHER")
 
         context = { 
             'user':u,
@@ -217,6 +245,8 @@ def main_other(request):
         form = SearchForm()
         articles = Article.objects.filter(engine = "OTHER")[:16]
         
+        print(articles)
+
         context = { 
             'user':u,
             'articles':articles,
@@ -308,7 +338,15 @@ def message_form(request):
 def settings(request):
     """ Renders the settings page """
     u = UserCheck(request)
-    form = UserExtensionForm(request.POST or None)
+
+    user_data = {'username':u.username,
+                 'first_name':u.first_name,
+                 'last_name':u.last_name,
+                 'email':u.email,
+                 'bio':u.userextension.bio,
+                 'location':u.userextension.location}
+
+    form = UserExtensionForm(request.POST or None, initial = user_data)
     if form.is_valid():
         username = form.cleaned_data['username']
         first_name = form.cleaned_data['first_name']
@@ -316,29 +354,16 @@ def settings(request):
         email = form.cleaned_data['email']
         bio = form.cleaned_data['bio']
         location = form.cleaned_data['location']
-        new_password = form.cleaned_data['new_password']
-        new_password_again = form.cleaned_data['new_password_again']
 
-
-        if username:
-            u.username = username
-
-        if first_name:
+        if form.has_changed:
+            if not User.objects.filter(username = username).exists() or u.username == username:
+                u.username = username
             u.first_name = first_name
-
-        if last_name:
             u.last_name = last_name
-
-        if email:
             u.email = email
-
-        if bio:
             u.userextension.bio = bio
-
-        if location:
             u.userextension.location= location
-
-        u.save()
+            u.save()
 
         return redirect('account')
     
@@ -352,20 +377,49 @@ def settings(request):
         'app/settings.html',
         context)
 
-#def user_view(request, id):
-#     u = get_object_or_404(User, id=id)
+def password_change(request):
+    u = UserCheck(request)
 
-#     context = {
-#         'user': u,
-#         }
-    
-#    # return redirect(reverse('u', kwargs={'id': u.id}))
-    
-#    #return render(
-#    #     request, 
-#    #     'app/user_page.html',
-#    #     context)
+    form = ChangePasswordForm(request.POST or None)
+    if form.is_valid():
+        new_password = form.cleaned_data['new_password']
+        new_password_again = form.cleaned_data['new_password_again']
 
+        u.set_password(new_password)
+        u.save()
+        return redirect('logout')
+
+    context = {
+        'user':u,
+        'form':form,
+    }
+
+    return render(
+        request,
+        'app/password_change.html',
+        context)
+
+def user_view(request, username):
+     u = get_object_or_404(User, username=username)
+     articles = Article.objects.filter(user = u)
+     comments = Comment.objects.filter(user = u)
+
+
+     context = {
+         'user': u,
+         'comments':comments,
+         'articles':articles,
+          }
+    
+     return render(
+        request, 
+        'app/user_page.html',
+        context)
+
+def delete_article(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    article.delete()
+    return redirect('articles')
 
 def articles(request):
     """ Renders the articles page """
@@ -373,6 +427,9 @@ def articles(request):
     saved_art = Article.objects.filter(user = u, released = False) 
     released_art = Article.objects.filter(user = u, released = True) 
     not_verified = Article.objects.filter(verified = False)
+
+
+
 
     print(not_verified)
 
@@ -388,7 +445,7 @@ def articles(request):
         'app/articles.html',
         context)
 
-def create_article(request):
+def create_article_tag(request):
     u = UserCheck(request)
     form =  ArticleForm(request.POST or None, request.FILES or None)
     if 'CREATE' in request.POST:
@@ -402,6 +459,7 @@ def create_article(request):
                 overview = form.cleaned_data['overview'],
                 verified = False,
                 released = True,
+                tag = True,
                 )
             return redirect('articles')
     if 'SAVE' in request.POST:
@@ -415,6 +473,7 @@ def create_article(request):
                 overview = form.cleaned_data['overview'],
                 verified = False,
                 released = False,
+                tag = True,
                 )
             return redirect('articles')
 
@@ -425,8 +484,131 @@ def create_article(request):
 
     return render(
         request,
-        'app/article_form.html',
+        'app/article_form_tag.html',
         context)
+
+def create_article_html(request):
+    u = UserCheck(request)
+    form =  ArticleForm(request.POST or None, request.FILES or None)
+    if 'CREATE' in request.POST:
+        if form.is_valid():
+            article.name = form.cleaned_data['name']
+            article.engine = form.cleaned_data['engine']
+            article.picture = form.cleaned_data['picture']
+            article.text = form.cleaned_data['text']
+            article.overview = form.cleaned_data['overview']
+            article.released = True
+            article.save()
+            return redirect('articles')
+
+    if 'SAVE' in request.POST:
+        if form.is_valid():
+            article.name = form.cleaned_data['name']
+            article.engine = form.cleaned_data['engine']
+            article.picture = form.cleaned_data['picture']
+            article.text = form.cleaned_data['text']
+            article.overview = form.cleaned_data['overview']
+            article.released = false
+            article.save()
+            return redirect('articles')
+
+    context = {
+        'user':u,
+        'form':form,
+        }
+
+    return render(
+        request,
+        'app/article_form_html.html',
+        context)
+
+def create_article_saved(request, article_id):
+    u = UserCheck(request)
+
+    article = get_object_or_404(Article, pk = article_id)
+
+    article_data = {'name':article.name,
+                    'engine':article.engine,
+                    'picture':article.picture,
+                    'text':article.text,
+                    'overview':article.overview}
+
+    if article.tag:
+        form =  ArticleForm(request.POST or None, request.FILES or None, initial=article_data)
+        if 'CREATE' in request.POST:
+            if form.is_valid():
+                article.name = form.cleaned_data['name']
+                article.engine = form.cleaned_data['engine']
+                article.picture = form.cleaned_data['picture']
+                article.text = form.cleaned_data['text']
+                article.overview = form.cleaned_data['overview']
+                article.released = True
+                article.save()
+                return redirect('articles')
+
+        if 'SAVE' in request.POST:
+            if form.is_valid():
+                article.name = form.cleaned_data['name']
+                article.engine = form.cleaned_data['engine']
+                article.picture = form.cleaned_data['picture']
+                article.text = form.cleaned_data['text']
+                article.overview = form.cleaned_data['overview']
+                article.released = False
+                article.save()
+                return redirect('articles')
+
+        context = {
+            'user':u,
+            'form':form,
+            'article':article,
+            }
+
+        return render(
+            request,
+            'app/article_form_saved.html',
+            context)
+    else:
+        form =  ArticleForm(request.POST or None, request.FILES or None)
+        if 'CREATE' in request.POST:
+            if form.is_valid():
+                article.update(
+                    user = u,
+                    name = form.cleaned_data['name'],
+                    engine = form.cleaned_data['engine'],
+                    picture = form.cleaned_data['picture'],
+                    text = form.cleaned_data['text'],
+                    overview = form.cleaned_data['overview'],
+                    verified = False,
+                    released = True,
+                    tag = True,
+                    )
+                return redirect('articles')
+
+        if 'SAVE' in request.POST:
+            if form.is_valid():
+               article.update(
+                    user = u,
+                    name = form.cleaned_data['name'],
+                    engine = form.cleaned_data['engine'],
+                    picture = form.cleaned_data['picture'],
+                    text = form.cleaned_data['text'],
+                    overview = form.cleaned_data['overview'],
+                    verified = False,
+                    released = False,
+                    tag = True,
+                    )
+            return redirect('articles')
+
+        context = {
+            'user':u,
+            'form':form,
+            'article':article,
+            }
+
+        return render(
+            request,
+            'app/article_form_saved.html',
+            context)
 
 def article_detail(request, article_id):
     u = UserCheck(request)
@@ -435,12 +617,83 @@ def article_detail(request, article_id):
 
     article = get_object_or_404(Article, pk=article_id)
 
-    html = MakeHTML(article.text)
+    comments = Comment.objects.filter(article = article)
+
+    dummy_voter = Voter.objects.filter(article = article, user = u)
+    if dummy_voter.exists():
+        voter = get_object_or_404(Voter, pk=dummy_voter[0].id)
+        if voter.value:
+            vote = 1
+        else: 
+            vote = 2
+    else: 
+        vote = 0
+        voter = None
+
+    subcomments = []
+
+    for comment in comments:
+        subcomments += SubComment.objects.filter(comment = comment)
+
+    if article.tag:
+        html = MakeHTML(article.text)
+    else:
+        html = article.text
+    
+    if request.method == "POST":
+        comment_form = CommentForm()
+        subcomment_form = SubCommentForm()
+        if 'COMMENT' in request.POST:
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                Comment.objects.create(
+                    user = u,
+                    article = article,
+                    text = comment_form.cleaned_data["text"],
+                    time = datetime.now(),
+                    )
+        if 'SUBCOMMENT' in request.POST:
+            subcomment_form = SubCommentForm(request.POST)
+            subs_comment = get_object_or_404(Comment, pk=request.POST.get("comment_id"))
+            if subcomment_form.is_valid():
+                SubComment.objects.create(
+                        user = u, 
+                        comment = subs_comment,
+                        text = subcomment_form.cleaned_data["text"],
+                        time = datetime.now(),
+                     )
+        if 'UP' in request.POST:
+            article.points += 1
+            article.save()
+            vote = 1
+            if voter:
+                voter.value = True
+                voter.save()
+            else:
+                voter = Voter.objects.create(user = u, article = article, value = True)
+
+        if 'DOWN' in request.POST:
+            article.points -= 1
+            article.save()
+            vote = 2
+            if voter:
+                voter.value = False
+                voter.save()
+            else:
+                voter = Voter.objects.create(user = u, article = article)
+    else:
+        comment_form = CommentForm()
+        subcomment_form = SubCommentForm()
 
     context = {
+         'vote':vote,
          'user':u,
          'article':article,
          'html':html,
+         'comments': comments,
+         'subcomments':subcomments,
+         'comment_form':comment_form,
+         'subcomment_form':subcomment_form,
          }
 
     return render(
@@ -448,3 +701,11 @@ def article_detail(request, article_id):
          'app/article.html',
          context
          )
+
+def verify_article(request, article_id):
+     article = get_object_or_404(Article, pk = article_id)
+
+     article.verified = True;
+     article.save();
+
+     return redirect('articles')

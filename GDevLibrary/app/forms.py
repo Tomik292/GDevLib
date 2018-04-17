@@ -3,7 +3,7 @@ from crispy_forms.helper import FormHelper
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Message, Article, UserExtension
+from .models import Message, Article, UserExtension, Comment, SubComment
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
@@ -35,8 +35,6 @@ class UserExtensionForm(forms.Form):
     email =  forms.EmailField(required=False)
     bio = forms.CharField(widget=forms.Textarea, max_length=500, required=False)
     location = forms.CharField(max_length=50, required=False)
-    new_password = forms.CharField(widget=forms.PasswordInput, required=False)
-    new_password_again = forms.CharField(widget=forms.PasswordInput, required=False)
 
     def clean(self):
         username = self.cleaned_data['username']
@@ -45,14 +43,22 @@ class UserExtensionForm(forms.Form):
         email = self.cleaned_data['email']
         bio = self.cleaned_data['bio']
         location = self.cleaned_data['location']
+
+
+class ChangePasswordForm(forms.Form):
+
+    new_password = forms.CharField(widget = forms.PasswordInput)
+    new_password_again = forms.CharField(widget = forms.PasswordInput)
+
+    def clean(self):
         new_password = self.cleaned_data['new_password']
         new_password_again = self.cleaned_data['new_password_again']
 
-        if User.objects.filter(username = username).exists():
-            raise forms.ValidationError("User with this name already exists")
+        if len(new_password) < 8:
+            raise forms.ValidationError("Password needs to be atleast 8 characters long!")
 
-
-
+        if new_password != new_password_again:
+            raise forms.ValidationError("Passwords aren't matching")
 
 class LoginForm(forms.Form):
     name = forms.CharField(max_length=150)
@@ -80,3 +86,20 @@ class ArticleForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     key_words = forms.CharField(max_length = 200, label="", widget = forms.TextInput(attrs={'placeholder':'Search'}))
+
+class CommentForm(forms.ModelForm):
+
+    text = forms.CharField(max_length = 500, label = 'Comment:', widget=forms.Textarea, required = False)
+
+    class Meta:
+        model = Comment
+        fields = ['text']
+
+class SubCommentForm(forms.ModelForm):
+
+    text = forms.CharField(max_length = 500, label = 'Reply:', widget=forms.Textarea(attrs={'rows':2, 'cols':15}), required = False)
+
+    class Meta:
+
+        model = SubComment
+        fields = ['text']

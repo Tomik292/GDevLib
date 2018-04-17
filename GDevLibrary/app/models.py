@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
-from .utils import ENGINE_CHOICES
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -45,11 +44,24 @@ class UserExtension(models.Model):
 def upload_location(instance):
     return "articles/" +  str(instance.id)
 
+ENGINE_CHOICES = (
+    ("UNITY", "Unity Engine"),
+    ("CRY", "Cry Engine"),
+    ("UNREAL", "Unreal Engine"),
+    ("OTHER", "Other Engines"),
+)
+
+VOTE_CHOICES = (
+    ("UP","Upvote"),
+    ("DOWN","Downvote"),
+    ("NONE","NotVoted"),
+)
+
 class Article(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 50, default = "")
     engine = models.CharField(choices=ENGINE_CHOICES, max_length = 10)
-    overview = models.TextField(max_length = 100, default = "")
+    overview = models.TextField(max_length = 300, default = "")
     text = models.TextField(max_length = 10000, default = "")
     picture = models.ImageField(null=True, blank = True, width_field = 'pic_width', height_field = 'pic_height')
     pic_height = models.IntegerField(default = 0)
@@ -57,30 +69,34 @@ class Article(models.Model):
     verified = models.BooleanField()
     points = models.IntegerField(default = 0)
     released = models.BooleanField(default = False)
+    tag = models.BooleanField(default = True)
     release_date = models.DateTimeField(default = datetime.datetime.now())
 
     def __str__(self):
        return "Article " + self.name + " by " + str(self.user) + " " + str(self.points) + " points, Engine: " + str(self.engine) 
 
+
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     text = models.TextField(max_length = 500)
-    time = models.DateTimeField()
-    points = models.IntegerField(default = 0)
+    time = models.DateTimeField(default = datetime.datetime.now())
 
     def __str__(self):
        return "Comment on article "+ str(self.article.name) + " by " + str(self.user)
 
 class SubComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     text = models.TextField(max_length = 500)
-    time = models.DateTimeField()
+    time = models.DateTimeField(default = datetime.datetime.now())
 
     def __str__(self):
        return "Subcomment from " +  str(self.user) + " on " + str(self.comment.article.name) + " article"  
 
-
+class Voter(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    value = models.BooleanField(default = False)
 
     

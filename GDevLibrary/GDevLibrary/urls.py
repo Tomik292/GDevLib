@@ -89,37 +89,56 @@ urlpatterns = [
         views.articles,
         name='articles'),
 
-    # /account/articles/[number]
-    url(r'^account/articles/(?P<article_id>[0-9]+)/$',
+    url(r'account/articles/(?P<article_id>[0-9]+)/delete/$',
+        views.delete_article,
+        name='delete_article'),
+
+    # /articles/[number]
+    url(r'^articles/(?P<article_id>[0-9]+)/$',
         views.article_detail,
         name='article_detail'),
 
-    # /account/create/article
-    url(r'^account/create_article/$',
-        views.create_article,
-        name='create_article'),
+    # /account/create_article/tag
+    url(r'^account/create_article_tag/$',
+        views.create_article_tag,
+        name='create_article_tag'),
 
+    # /account/create_article/html
+    url(r'^account/create_article_html/$',
+        views.create_article_html,
+        name='create_article_html'),
 
      # /account/settings
     url(r'^account/settings/$',
         views.settings,
         name='settings'),
 
+    url(r'^account/settings/change_password/$',
+        views.password_change,
+        name="password_change"),
 
+     #/user/id
+    url(r'^user/(?P<username>[\w.@+-]+)/$',
+        views.user_view,
+        name='user_view'),
 
+    url(r'^account/create_article_saved/(?P<article_id>[0-9]+)/$',
+        views.create_article_saved,
+        name='create_article_saved'),
 
+    url(r'^articles/(?P<article_id>[0-9]+)/verified/$',
+        views.verify_article,
+        name='verify_article'),
 
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.activate,
+        name='activate'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     # /admin/
     url(r'^admin/', admin.site.urls),
-
-        #/user/id
-    #url(r'^user/id(?P<id>\d+)/',
-    #    views.user_view,
-    #    name='user_view'),
 
 
 ]

@@ -47,6 +47,7 @@ Account
                                 <th scope="col">Verified</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Points</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +69,7 @@ Account
                                 </td>
                                 <td>{{r_article.release_date|date:'d-m-Y'}}</td>
                                 <td>{{r_article.points}}</td>
+                                <td><a class="btn btn-primary bluer-btn" href="{% url 'delete_article' article_id=r_article.id %}">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -88,7 +90,7 @@ Account
                            {% for s_article in saved %}
                             <tr>
                                 <th scope="row">
-                                    <i class="fas fa-book"></i>
+                                    <a href="{% url 'create_article_saved' s_article.id %}"><i class="fas fa-book"></i></a>
                                 </th>
                                 <td>{{s_article.name}}</td>
                                 <td>{{s_article.engine}}</td>
@@ -115,6 +117,7 @@ Account
                                 <th scope="col">Engine</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Points</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,6 +132,7 @@ Account
                                 <td>{{v_article.engine}}</td>
                                 <td>{{v_article.release_date|date:'d-m-Y'}}</td>
                                 <td>{{v_article.points}}</td>
+                                <td><a class="btn btn-primary bluer-btn" href="{% url 'delete_article' article_id=v_article.id %}">Delete</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -139,7 +143,7 @@ Account
         </div>
 
         <div class="col-lg-2">
-            <a class="btn btn-primary msg-send" href="{% url 'create_article' %}" role="button">New Article</a>
+            <a class="btn btn-primary msg-send bluer-btn" href="{% url 'create_article_tag' %}" role="button">New Article</a>
         </div>
     </div>
 </div>
