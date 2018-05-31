@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.views.generic import View
 from django.core.mail import EmailMessage
@@ -452,11 +453,11 @@ def create_article_tag(request):
         if form.is_valid():
             Article.objects.create(
                 user = u,
-                name = form.cleaned_data['name'],
+                name = strip_tags(form.cleaned_data['name']),
                 engine = form.cleaned_data['engine'],
                 picture = form.cleaned_data['picture'],
-                text = form.cleaned_data['text'],
-                overview = form.cleaned_data['overview'],
+                text = strip_tags(form.cleaned_data['text']),
+                overview = strip_tags(form.cleaned_data['overview']),
                 verified = False,
                 released = True,
                 tag = True,
@@ -466,11 +467,11 @@ def create_article_tag(request):
         if form.is_valid():
             Article.objects.create(
                 user = u,
-                name = form.cleaned_data['name'],
+                name = strip_tags(form.cleaned_data['name']),
                 engine = form.cleaned_data['engine'],
                 picture = form.cleaned_data['picture'],
-                text = form.cleaned_data['text'],
-                overview = form.cleaned_data['overview'],
+                text = strip_tags(form.cleaned_data['text']),
+                overview = strip_tags(form.cleaned_data['overview']),
                 verified = False,
                 released = False,
                 tag = True,
@@ -492,24 +493,32 @@ def create_article_html(request):
     form =  ArticleForm(request.POST or None, request.FILES or None)
     if 'CREATE' in request.POST:
         if form.is_valid():
-            article.name = form.cleaned_data['name']
-            article.engine = form.cleaned_data['engine']
-            article.picture = form.cleaned_data['picture']
-            article.text = form.cleaned_data['text']
-            article.overview = form.cleaned_data['overview']
-            article.released = True
-            article.save()
+            Article.objects.create(
+                user = u,
+                name = strip_tags(form.cleaned_data['name']),
+                engine = form.cleaned_data['engine'],
+                picture = form.cleaned_data['picture'],
+                text = form.cleaned_data['text'],
+                overview = strip_tags(form.cleaned_data['overview']),
+                verified = False,
+                released = True,
+                tag = False,
+                )
             return redirect('articles')
 
     if 'SAVE' in request.POST:
         if form.is_valid():
-            article.name = form.cleaned_data['name']
-            article.engine = form.cleaned_data['engine']
-            article.picture = form.cleaned_data['picture']
-            article.text = form.cleaned_data['text']
-            article.overview = form.cleaned_data['overview']
-            article.released = false
-            article.save()
+            Article.objects.create(
+                user = u,
+                name = strip_tags(form.cleaned_data['name']),
+                engine = form.cleaned_data['engine'],
+                picture = form.cleaned_data['picture'],
+                text = form.cleaned_data['text'],
+                overview = strip_tags(form.cleaned_data['overview']),
+                verified = False,
+                released = False,
+                tag = False,
+                )
             return redirect('articles')
 
     context = {
@@ -539,7 +548,8 @@ def create_article_saved(request, article_id):
             if form.is_valid():
                 article.name = form.cleaned_data['name']
                 article.engine = form.cleaned_data['engine']
-                article.picture = form.cleaned_data['picture']
+                if form.cleaned_data['picture']:
+                    article.picture = form.cleaned_data['picture']
                 article.text = form.cleaned_data['text']
                 article.overview = form.cleaned_data['overview']
                 article.released = True
@@ -550,7 +560,8 @@ def create_article_saved(request, article_id):
             if form.is_valid():
                 article.name = form.cleaned_data['name']
                 article.engine = form.cleaned_data['engine']
-                article.picture = form.cleaned_data['picture']
+                if form.cleaned_data['picture']:
+                    article.picture = form.cleaned_data['picture']
                 article.text = form.cleaned_data['text']
                 article.overview = form.cleaned_data['overview']
                 article.released = False
@@ -652,6 +663,7 @@ def article_detail(request, article_id):
                     text = comment_form.cleaned_data["text"],
                     time = datetime.now(),
                     )
+                return HttpResponseRedirect('#')
         if 'SUBCOMMENT' in request.POST:
             subcomment_form = SubCommentForm(request.POST)
             subs_comment = get_object_or_404(Comment, pk=request.POST.get("comment_id"))
@@ -662,6 +674,7 @@ def article_detail(request, article_id):
                         text = subcomment_form.cleaned_data["text"],
                         time = datetime.now(),
                      )
+                return HttpResponseRedirect('#')
         if 'UP' in request.POST:
             article.points += 1
             article.save()

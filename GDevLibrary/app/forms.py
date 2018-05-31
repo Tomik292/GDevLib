@@ -2,6 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils.html import strip_tags
 
 from .models import Message, Article, UserExtension, Comment, SubComment
 
@@ -37,12 +38,12 @@ class UserExtensionForm(forms.Form):
     location = forms.CharField(max_length=50, required=False)
 
     def clean(self):
-        username = self.cleaned_data['username']
-        first_name = self.cleaned_data['first_name']
+        username = strip_tags(self.cleaned_data['username'])
+        first_name =  strip_tags(self.cleaned_data['first_name'])
         last_name = self.cleaned_data['last_name']
-        email = self.cleaned_data['email']
-        bio = self.cleaned_data['bio']
-        location = self.cleaned_data['location']
+        email =  strip_tags(self.cleaned_data['email'])
+        bio =  strip_tags(self.cleaned_data['bio'])
+        location =  strip_tags(self.cleaned_data['location'])
 
 
 class ChangePasswordForm(forms.Form):
@@ -51,8 +52,8 @@ class ChangePasswordForm(forms.Form):
     new_password_again = forms.CharField(widget = forms.PasswordInput)
 
     def clean(self):
-        new_password = self.cleaned_data['new_password']
-        new_password_again = self.cleaned_data['new_password_again']
+        new_password =  strip_tags(self.cleaned_data['new_password'])
+        new_password_again =  strip_tags(self.cleaned_data['new_password_again'])
 
         if len(new_password) < 8:
             raise forms.ValidationError("Password needs to be atleast 8 characters long!")
@@ -65,8 +66,8 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self):
-        name = self.cleaned_data['name']
-        password = self.cleaned_data['password']
+        name =  strip_tags(self.cleaned_data['name'])
+        password =  strip_tags(self.cleaned_data['password'])
 
         if not User.objects.filter(username = name).exists():
             raise forms.ValidationError("User doesn't exist!")

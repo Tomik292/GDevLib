@@ -42,7 +42,9 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
-    <Compile Include="GDevLibrary\email_info.py" />
+    <Compile Include="GDevLibrary\email_info.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="manage.py" />
     <Compile Include="GDevLibrary\__init__.py" />
     <Compile Include="GDevLibrary\settings.py" />
