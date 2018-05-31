@@ -90,7 +90,7 @@ Unity
                      {% endif %}"  width="250" height="180">
                 <div class="card-body">
                   <h4>{{article.name}}</h4>
-                   <p>fgadsklfjdsaklůfjasdklfjasdlůf</p>
+                   <p>{{article.overview}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                      <a class="btn btn-outline-primary btn-bluer" href="{% url 'article_detail' article.id %}" role="button">Read!</a>
                     <small class="text-muted">{{article.points}} points</small>

@@ -10,14 +10,13 @@ Account
         <div class="col-lg-3 col-md-5 col-sm-5 col-xs-5">
             <div class="list-group">
                 <h2 href="#" class="list-group-item list-heading">
-                    {{user.first_name}}' messages
+                    {{user.first_name}}'s profile
                 </h2>
                 <a href="{% url 'account' %}" class="list-group-item list-group-item-action">Profile</a>
                 <a href="{% url 'messages' %}" class="list-group-item list-group-item-action activated">Messages</a>
                 <a href="{% url 'articles' %}" class="list-group-item list-group-item-action">Articles</a>
-                <a href="{% url 'favorites' %}" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="#" class="list-group-item list-group-item-action disabled">Premium</a>
                 <a href="{% url 'settings' %}" class="list-group-item list-group-item-action">Settings</a>
+                <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Logout</a>
             </div>
         </div>
 
